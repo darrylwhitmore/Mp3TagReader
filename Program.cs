@@ -46,6 +46,19 @@ namespace Mp3TagReader {
 		}
 
 		private static int Process( string fileValue ) {
+			var fs = File.Open( fileValue, FileMode.Open );
+			
+			using var br = new BinaryReader( fs );
+
+			var header = new Id3Header( br );
+
+			var frames = new List<Id3Frame>();
+			while ( Id3Frame.GetNextFrame( br ) is { } frame ) {
+				frames.Add( frame );
+			}
+
+			br.Close();
+
 			return AppReturnValueOk;
 		}
 	}
