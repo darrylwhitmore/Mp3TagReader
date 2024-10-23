@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Mp3TagReader": {
+      "commandName": "Project",
+      "commandLineArgs": "-f \"D:\\Junk\\mp3tagreadwrite\\01 Tonight's The Night (Gonna Be Allright) (2).mp3\""
+    }
+  }
+}
