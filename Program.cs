@@ -14,20 +14,38 @@ namespace Mp3TagReader {
 
 			app.HelpOption( "-?|-h|--help" );
 
-			var fileOption = app.Option( "-f|--file <Mp3File>",
-				"The MP3 file to read.",
+			var fileSpecOption = app.Option( "-fs|--fileSpec <FileSpec>",
+				"The MP3 file(s) specification. Wildcards may be used.",
 				CommandOptionType.SingleValue );
 
 			app.OnExecute( () => {
-				if ( fileOption.HasValue() ) {
-					var fileValue = fileOption.Value() ?? string.Empty;
+				if ( fileSpecOption.HasValue() ) {
+					var fileSpecValue = fileSpecOption.Value() ?? string.Empty;
 
-					if ( !File.Exists( fileValue ) ) {
-						Console.WriteLine( $"Input file(s) not found: '{fileValue}'" );
+					var directory = Path.GetDirectoryName( fileSpecValue );
+
+					if ( !Directory.Exists( directory ) ) {
+						Console.WriteLine( $"Directory does not exist: '{directory}'" );
 						return AppReturnValueFail;
 					}
 
-					return Process( fileValue );
+					var searchPattern = Path.GetFileName( fileSpecValue );
+
+					var files = Directory.GetFiles( directory, searchPattern );
+
+					if ( !files.Any() ) {
+						Console.WriteLine( "No files were found." );
+						return AppReturnValueFail;
+					}
+
+					foreach ( var file in files ) {
+						if ( Path.GetExtension( file ) != ".mp3" ) {
+							Console.WriteLine( $"A non-MP3 file was found: '{file}'" );
+							return AppReturnValueFail;
+						}
+					}
+
+					return Process( files );
 				}
 
 				Console.WriteLine( "One or more required arguments were not provided." );
@@ -45,19 +63,16 @@ namespace Mp3TagReader {
 			return AppReturnValueFail;
 		}
 
-		private static int Process( string fileValue ) {
-			var fs = File.Open( fileValue, FileMode.Open );
-			
-			using var br = new BinaryReader( fs );
+		private static int Process( string[] files ) {
+			foreach ( var file in files ) {
+				var fs = File.Open( file, FileMode.Open );
 
-			var header = new Id3Header( br );
+				using var br = new BinaryReader( fs );
 
-			var frames = new List<Id3Frame>();
-			while ( Id3Frame.GetNextFrame( br ) is { } frame ) {
-				frames.Add( frame );
+				var tag = new Id3Tag( br );
+
+				br.Close();
 			}
-
-			br.Close();
 
 			return AppReturnValueOk;
 		}
