@@ -1,4 +1,5 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
+using Newtonsoft.Json;
 
 namespace Mp3TagReader {
 	internal class Program {
@@ -64,15 +65,21 @@ namespace Mp3TagReader {
 		}
 
 		private static int Process( string[] files ) {
+			var tags = new List<Id3Tag>();
+
 			foreach ( var file in files ) {
 				var fs = File.Open( file, FileMode.Open );
 
 				using var br = new BinaryReader( fs );
 
-				var tag = new Id3Tag( br );
+				tags.Add( new Id3Tag( br ) );
 
 				br.Close();
 			}
+
+			var json = JsonConvert.SerializeObject( tags, Formatting.Indented );
+
+			Console.WriteLine( json );
 
 			return AppReturnValueOk;
 		}

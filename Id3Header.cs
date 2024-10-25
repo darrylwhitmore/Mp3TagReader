@@ -11,7 +11,8 @@
 		public bool ExtendedHeader { get; private set; }
 		public bool Experimental { get; private set; }
 
-
+		// ID3v2 header
+		// https://id3.org/id3v2.3.0#ID3v2_header
 		private void ReadHeader( BinaryReader binaryReader ) {
 			var id3Id = new byte[3];
 			var id3Version = new byte[2];
@@ -30,6 +31,12 @@
 			Unsynchronisation = ( id3Flags[0] & 0b1000000 ) != 0;
 			ExtendedHeader = ( id3Flags[0] & 0b100000 ) != 0;
 			Experimental = ( id3Flags[0] & 0b10000 ) != 0;
+
+			if ( ExtendedHeader ) {
+				// ID3v2 extended header
+				// https://id3.org/id3v2.3.0#ID3v2_extended_header
+				throw new NotImplementedException( "Extended headers are not currently implemented" );
+			}
 		}
 		private ulong ConvertRawSize( byte[] rawSize ) {
 			return ( ulong )rawSize[0] << 21 | ( ulong )rawSize[1] << 14 | ( ulong )rawSize[2] << 7 | rawSize[3];
