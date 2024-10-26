@@ -65,17 +65,7 @@ namespace Mp3TagReader {
 		}
 
 		private static int Process( string[] files ) {
-			var tags = new List<Id3Tag>();
-
-			foreach ( var file in files ) {
-				var fs = File.Open( file, FileMode.Open );
-
-				using var br = new BinaryReader( fs );
-
-				tags.Add( new Id3Tag( br ) );
-
-				br.Close();
-			}
+			var tags = ( from file in files select new Id3Tag( file ) ).ToList();
 
 			var json = JsonConvert.SerializeObject( tags, Formatting.Indented );
 

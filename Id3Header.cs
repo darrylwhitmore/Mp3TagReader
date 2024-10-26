@@ -1,4 +1,6 @@
 ﻿namespace Mp3TagReader {
+	// ID3v2 header
+	// https://id3.org/id3v2.3.0#ID3v2_header
 	internal class Id3Header {
 		public Id3Header( BinaryReader binaryReader) {
 			ReadHeader( binaryReader );
@@ -11,8 +13,6 @@
 		public bool ExtendedHeader { get; private set; }
 		public bool Experimental { get; private set; }
 
-		// ID3v2 header
-		// https://id3.org/id3v2.3.0#ID3v2_header
 		private void ReadHeader( BinaryReader binaryReader ) {
 			var id3Id = new byte[3];
 			var id3Version = new byte[2];
@@ -29,8 +29,8 @@
 			Size = ConvertRawSize( id3SizeRaw );
 
 			Unsynchronisation = ( id3Flags[0] & 0b1000000 ) != 0;
-			ExtendedHeader = ( id3Flags[0] & 0b100000 ) != 0;
-			Experimental = ( id3Flags[0] & 0b10000 ) != 0;
+			ExtendedHeader = ( id3Flags[0]    & 0b0100000 ) != 0;
+			Experimental = ( id3Flags[0]      & 0b0010000 ) != 0;
 
 			if ( ExtendedHeader ) {
 				// ID3v2 extended header
