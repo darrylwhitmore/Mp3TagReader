@@ -20,6 +20,8 @@
 		public Id3Header Header { get; }
 		public List<Id3Frame> Frames { get; } = [];
 
+		public int PaddingSize { get; private set; }
+
 		private void ReadFrames( BinaryReader binaryReader ) {
 			var leftToRead = Header.Size;
 
@@ -28,6 +30,8 @@
 
 				leftToRead -= frame.FrameSize;
 			}
+
+			PaddingSize = (int)leftToRead;
 		}
 	}
 }

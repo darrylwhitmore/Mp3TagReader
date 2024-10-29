@@ -49,7 +49,33 @@ namespace Mp3TagReader {
 				return null;
 			}
 
+			// Declared ID3v2 frames
+			// https://id3.org/id3v2.3.0#Declared_ID3v2_frames
 			switch ( frameId ) {
+				case "TALB":
+					return new Id3TextInformationFrame( frameId, "Album/Movie/Show title", binaryReader );
+
+				case "TCON":
+					return new Id3TextInformationFrame( frameId, "Content type", binaryReader );
+
+				case "TIT2":
+					return new Id3TextInformationFrame( frameId, "Title/songname/content description", binaryReader );
+
+				case "TLEN":
+					return new Id3TextInformationFrame( frameId, "Length", binaryReader );
+
+				case "TPE1":
+					return new Id3TextInformationFrame( frameId, "Lead performer(s)/Soloist(s)", binaryReader );
+
+				case "TPE2":
+					return new Id3TextInformationFrame( frameId, "Band/orchestra/accompaniment", binaryReader );
+
+				case "TRCK":
+					return new Id3TextInformationFrame( frameId, "Track number/Position in set", binaryReader );
+
+				case "TYER":
+					return new Id3TextInformationFrame( frameId, "Year", binaryReader );
+
 				default:
 					return new Id3UnimplementedFrame( frameId, binaryReader );
 			}
