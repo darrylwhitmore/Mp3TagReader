@@ -57,6 +57,9 @@ namespace Mp3TagReader {
 			// Declared ID3v2 frames
 			// https://id3.org/id3v2.3.0#Declared_ID3v2_frames
 			switch ( frameId ) {
+				case "PRIV":
+					return new Id3PrivateFrame( frameId, "Private frame", binaryReader );
+
 				case "TALB":
 					return new Id3TextInformationFrame( frameId, "Album/Movie/Show title", binaryReader );
 
