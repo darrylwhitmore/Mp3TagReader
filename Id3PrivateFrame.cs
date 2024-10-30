@@ -2,6 +2,8 @@
 using Newtonsoft.Json;
 
 namespace Mp3TagReader {
+	// Private frame
+	// https://id3.org/id3v2.3.0#Private_frame
 	internal class Id3PrivateFrame : Id3Frame {
 		public Id3PrivateFrame( string frameId, string frameIdName, BinaryReader binaryReader ) : base( frameId, frameIdName, binaryReader ) {
 			ReadFrame( binaryReader );
@@ -11,7 +13,7 @@ namespace Mp3TagReader {
 		public string OwnerIdentifier { get; private set; }
 
 		[JsonProperty( Order = 2 )]
-		public int BinaryDataLength { get; private set; }
+		public int PrivateDataLength { get; private set; }
 
 		private void ReadFrame( BinaryReader binaryReader ) {
 			var frameBody = new byte[FrameSize];
@@ -20,7 +22,7 @@ namespace Mp3TagReader {
 
 			OwnerIdentifier = Encoding.Latin1.GetString( frameBody.TakeWhile( b => b != 0 ).ToArray() );
 
-			BinaryDataLength = frameBody.Length - OwnerIdentifier.Length - 1;
+			PrivateDataLength = frameBody.Length - OwnerIdentifier.Length - 1;
 		}
 	}
 }
