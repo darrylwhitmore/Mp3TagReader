@@ -1,11 +1,13 @@
 ﻿using System.Text;
+using Newtonsoft.Json;
 
 namespace Mp3TagReader {
 	// ID3v2 frame overview
 	// https://id3.org/id3v2.3.0#ID3v2_frame_overview
 	internal abstract class Id3Frame {
-		protected Id3Frame( string frameId, BinaryReader binaryReader ) {
+		protected Id3Frame( string frameId, string frameIdName, BinaryReader binaryReader ) {
 			FrameId = frameId;
+			FrameIdDisplay = $"{FrameId} ({frameIdName})";
 			BinaryReader = binaryReader;
 
 			var frameSizeRaw = new byte[4];
@@ -27,9 +29,15 @@ namespace Mp3TagReader {
 
 			Flags = $"{( tagAlterPreservationFlag ? "T" : "t" )}{( fileAlterPreservationFlag ? "F" : "f" )}{( readOnlyFlag ? "R" : "r" )}..... {( compressionFlag ? "C" : "c" )}{( encryptionFlag ? "E" : "e" )}{( groupingIdentityFlag ? "G" : "g" )}.....";
 		}
+
+		[JsonIgnore]
 		public string FrameId { get; }
-		public string FrameIdName { get; protected set; }
+
+		[JsonProperty( PropertyName = "FrameId" )]
+		protected string FrameIdDisplay { get; set; }
+
 		public ulong FrameSize { get; }
+
 		public string Flags { get; private set; }
 
 		protected BinaryReader BinaryReader { get; private set; }

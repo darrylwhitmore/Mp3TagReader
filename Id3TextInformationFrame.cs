@@ -1,15 +1,13 @@
 ﻿using System.Text;
-using System.Text.Unicode;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using Newtonsoft.Json;
 
 namespace Mp3TagReader {
 	internal class Id3TextInformationFrame : Id3Frame {
-		public Id3TextInformationFrame( string frameId, string frameIdName, BinaryReader binaryReader ) : base( frameId, binaryReader ) {
-			FrameIdName = frameIdName;
-
+		public Id3TextInformationFrame( string frameId, string frameIdName, BinaryReader binaryReader ) : base( frameId, frameIdName, binaryReader ) {
 			ReadText( binaryReader );
 		}
 
+		[JsonProperty( Order = 1 )]
 		public string Text { get; private set; }
 
 		private void ReadText( BinaryReader binaryReader ) {
