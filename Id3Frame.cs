@@ -18,22 +18,19 @@ namespace Mp3TagReader {
 
 			// Frame header flags
 			// https://id3.org/id3v2.3.0#Frame_header_flags
-			TagAlterPreservation = ( frameFlags[0]  & 0b1000000 ) == 0;
-			FileAlterPreservation = ( frameFlags[0] & 0b0100000 ) == 0;
-			ReadOnly = ( frameFlags[0]              & 0b0010000 ) != 0;
-			Compression = ( frameFlags[1]           & 0b1000000 ) != 0;
-			Encryption = ( frameFlags[1]            & 0b0100000 ) != 0;
-			GroupingIdentity = ( frameFlags[1]      & 0b0010000 ) != 0;
+			var tagAlterPreservationFlag = ( frameFlags[0]  & 0b1000000 ) != 0;
+			var fileAlterPreservationFlag = ( frameFlags[0] & 0b0100000 ) != 0;
+			var readOnlyFlag = ( frameFlags[0]              & 0b0010000 ) != 0;
+			var compressionFlag = ( frameFlags[1]           & 0b1000000 ) != 0;
+			var encryptionFlag = ( frameFlags[1]            & 0b0100000 ) != 0;
+			var groupingIdentityFlag = ( frameFlags[1]      & 0b0010000 ) != 0;
+
+			Flags = $"{( tagAlterPreservationFlag ? "T" : "t" )}{( fileAlterPreservationFlag ? "F" : "f" )}{( readOnlyFlag ? "R" : "r" )}..... {( compressionFlag ? "C" : "c" )}{( encryptionFlag ? "E" : "e" )}{( groupingIdentityFlag ? "G" : "g" )}.....";
 		}
 		public string FrameId { get; }
 		public string FrameIdName { get; protected set; }
 		public ulong FrameSize { get; }
-		public bool TagAlterPreservation { get; }
-		public bool FileAlterPreservation { get; }
-		public bool ReadOnly { get; }
-		public bool Compression { get; }
-		public bool Encryption { get; }
-		public bool GroupingIdentity { get; }
+		public string Flags { get; private set; }
 
 		protected BinaryReader BinaryReader { get; private set; }
 
@@ -55,8 +52,14 @@ namespace Mp3TagReader {
 				case "TALB":
 					return new Id3TextInformationFrame( frameId, "Album/Movie/Show title", binaryReader );
 
+				case "TCOM":
+					return new Id3TextInformationFrame( frameId, "Composer", binaryReader );
+
 				case "TCON":
 					return new Id3TextInformationFrame( frameId, "Content type", binaryReader );
+
+				case "TCOP":
+					return new Id3TextInformationFrame( frameId, "Copyright message", binaryReader );
 
 				case "TIT2":
 					return new Id3TextInformationFrame( frameId, "Title/songname/content description", binaryReader );
@@ -69,6 +72,12 @@ namespace Mp3TagReader {
 
 				case "TPE2":
 					return new Id3TextInformationFrame( frameId, "Band/orchestra/accompaniment", binaryReader );
+
+				case "TPE3":
+					return new Id3TextInformationFrame( frameId, "Conductor/performer refinement", binaryReader );
+
+				case "TPOS":
+					return new Id3TextInformationFrame( frameId, "Part of a set", binaryReader );
 
 				case "TRCK":
 					return new Id3TextInformationFrame( frameId, "Track number/Position in set", binaryReader );

@@ -9,9 +9,8 @@
 		public ulong Size { get; private set; }
 
 		public string Version { get; private set; }
-		public bool Unsynchronisation { get; private set; }
-		public bool ExtendedHeader { get; private set; }
-		public bool Experimental { get; private set; }
+
+		public string Flags { get; private set; }
 
 		private void ReadHeader( BinaryReader binaryReader ) {
 			var id3Id = new byte[3];
@@ -28,11 +27,12 @@
 
 			Size = ConvertRawSize( id3SizeRaw );
 
-			Unsynchronisation = ( id3Flags[0] & 0b1000000 ) != 0;
-			ExtendedHeader = ( id3Flags[0]    & 0b0100000 ) != 0;
-			Experimental = ( id3Flags[0]      & 0b0010000 ) != 0;
+			var unsynchronisationFlag = ( id3Flags[0] & 0b1000000 ) != 0;
+			var extendedHeaderFlag = ( id3Flags[0]    & 0b0100000 ) != 0;
+			var experimentalFlag = ( id3Flags[0]      & 0b0010000 ) != 0;
+			Flags = $"{( unsynchronisationFlag ? "U" : "u" )}{( extendedHeaderFlag ? "E" : "e" )}{( experimentalFlag ? "X" : "x" )}.....";
 
-			if ( ExtendedHeader ) {
+			if ( extendedHeaderFlag ) {
 				// ID3v2 extended header
 				// https://id3.org/id3v2.3.0#ID3v2_extended_header
 				throw new NotImplementedException( "Extended headers are not currently implemented" );
