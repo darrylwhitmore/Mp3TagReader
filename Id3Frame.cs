@@ -82,6 +82,9 @@ namespace Mp3TagReader {
 				case "TLEN":
 					return new Id3TextInformationFrame( frameId, "Length", binaryReader );
 
+				case "TMED":
+					return new Id3TextInformationFrame( frameId, "Media type", binaryReader );
+
 				case "TPE1":
 					return new Id3TextInformationFrame( frameId, "Lead performer(s)/Soloist(s)", binaryReader );
 
@@ -94,8 +97,16 @@ namespace Mp3TagReader {
 				case "TPOS":
 					return new Id3TextInformationFrame( frameId, "Part of a set", binaryReader );
 
+				case "TPUB":
+					return new Id3TextInformationFrame( frameId, "Publisher", binaryReader );
+
 				case "TRCK":
 					return new Id3TextInformationFrame( frameId, "Track number/Position in set", binaryReader );
+
+				case "TSO2":
+					// Off-Spec Frames
+					// https://mutagen-specs.readthedocs.io/en/latest/id3/id3v2-other-frames.html
+					return new Id3TextInformationFrame( frameId, "iTunes Album Artist Sort", binaryReader );
 
 				case "TYER":
 					return new Id3TextInformationFrame( frameId, "Year", binaryReader );
