@@ -4,29 +4,25 @@ using Newtonsoft.Json;
 namespace Mp3TagReader {
 	internal class Id3TextInformationFrame : Id3Frame {
 		public Id3TextInformationFrame( string frameId, string frameIdName, BinaryReader binaryReader ) : base( frameId, frameIdName, binaryReader ) {
-			ReadText( binaryReader );
+			ProcessFrameBody();
 		}
 
 		[JsonProperty( Order = 1 )]
 		public string Text { get; private set; }
 
-		private void ReadText( BinaryReader binaryReader ) {
-			var frameBody = new byte[FrameSize];
-
-			binaryReader.Read( frameBody, 0, frameBody.Length );
-
-			var encoding = GetEncoding( frameBody[0] );
-			var bytesLength = frameBody.Length - 1;
+		protected override void ProcessFrameBody() {
+			var encoding = GetEncoding( FrameBody[0] );
+			var bytesLength = FrameBody.Length - 1;
 
 			if ( Equals( encoding, Encoding.Unicode ) ) {
-				encoding = GetUtf16BomEncoding( frameBody[1] );
-				bytesLength = frameBody.Length - 3;
+				encoding = GetUtf16BomEncoding( FrameBody[1] );
+				bytesLength = FrameBody.Length - 3;
 			}
 
-			Text = encoding.GetString( frameBody.TakeLast( bytesLength ).ToArray() );
+			Text = encoding.GetString( FrameBody.TakeLast( bytesLength ).ToArray() );
 		}
 
-		// 4.   ID3v2 frame overview
+		// ID3v2 frame overview
 		// https://id3.org/id3v2.4.0-structure
 		private Encoding GetEncoding( byte encodingByte ) {
 			switch ( encodingByte ) {
@@ -51,7 +47,7 @@ namespace Mp3TagReader {
 			}
 		}
 
-		// 4.   ID3v2 frame overview
+		// ID3v2 frame overview
 		// https://id3.org/id3v2.4.0-structure
 		private Encoding GetUtf16BomEncoding( byte bomByte ) {
 			switch ( bomByte ) {

@@ -8,7 +8,6 @@ namespace Mp3TagReader {
 		protected Id3Frame( string frameId, string frameIdName, BinaryReader binaryReader ) {
 			FrameId = frameId;
 			FrameIdDisplay = $"{FrameId} ({frameIdName})";
-			BinaryReader = binaryReader;
 
 			var frameSizeRaw = new byte[4];
 			var frameFlags = new byte[2];
@@ -17,6 +16,9 @@ namespace Mp3TagReader {
 			binaryReader.Read( frameFlags, 0, frameFlags.Length );
 
 			FrameSize = ( ulong )frameSizeRaw[0] << 24 | ( ulong )frameSizeRaw[1] << 16 | ( ulong )( frameSizeRaw[2] << 8 ) | frameSizeRaw[3];
+
+			FrameBody = new byte[FrameSize];
+			binaryReader.Read( FrameBody, 0, FrameBody.Length );
 
 			// Frame header flags
 			// https://id3.org/id3v2.3.0#Frame_header_flags
@@ -36,11 +38,13 @@ namespace Mp3TagReader {
 		[JsonProperty( PropertyName = "FrameId" )]
 		protected string FrameIdDisplay { get; set; }
 
+		protected byte[] FrameBody { get; set; }
+
 		public ulong FrameSize { get; }
 
 		public string Flags { get; private set; }
 
-		protected BinaryReader BinaryReader { get; private set; }
+		protected abstract void ProcessFrameBody();
 
 		public static Id3Frame? GetNextFrame( BinaryReader binaryReader ) {
 			var frameIdRaw = new byte[4];

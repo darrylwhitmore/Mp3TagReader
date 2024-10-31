@@ -6,7 +6,7 @@ namespace Mp3TagReader {
 	// https://id3.org/id3v2.3.0#Private_frame
 	internal class Id3PrivateFrame : Id3Frame {
 		public Id3PrivateFrame( string frameId, string frameIdName, BinaryReader binaryReader ) : base( frameId, frameIdName, binaryReader ) {
-			ReadFrame( binaryReader );
+			ProcessFrameBody();
 		}
 
 		[JsonProperty( Order = 1 )]
@@ -15,14 +15,10 @@ namespace Mp3TagReader {
 		[JsonProperty( Order = 2 )]
 		public int PrivateDataLength { get; private set; }
 
-		private void ReadFrame( BinaryReader binaryReader ) {
-			var frameBody = new byte[FrameSize];
+		protected override void ProcessFrameBody() {
+			OwnerIdentifier = Encoding.Latin1.GetString( FrameBody.TakeWhile( b => b != 0 ).ToArray() );
 
-			binaryReader.Read( frameBody, 0, frameBody.Length );
-
-			OwnerIdentifier = Encoding.Latin1.GetString( frameBody.TakeWhile( b => b != 0 ).ToArray() );
-
-			PrivateDataLength = frameBody.Length - OwnerIdentifier.Length - 1;
+			PrivateDataLength = FrameBody.Length - OwnerIdentifier.Length - 1;
 		}
 	}
 }
