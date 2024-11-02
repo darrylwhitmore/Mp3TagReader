@@ -44,6 +44,46 @@ namespace Mp3TagReader {
 
 		public string Flags { get; private set; }
 
+		// ID3v2 frame overview
+		// https://id3.org/id3v2.4.0-structure
+		protected Encoding GetEncoding( byte encodingByte ) {
+			switch ( encodingByte ) {
+				case 0x0:
+					// ISO-8859-1
+					return Encoding.Latin1;
+
+				case 0x1:
+					// UTF-16 with BOM
+					return Encoding.Unicode;
+
+				case 0x2:
+					// UTF-16 without BOM
+					return Encoding.BigEndianUnicode;
+
+				case 0x3:
+					// UTF-8
+					return Encoding.UTF8;
+
+				default:
+					throw new ArgumentException( $"Unknown encoding byte: {encodingByte:X}" );
+			}
+		}
+
+		// ID3v2 frame overview
+		// https://id3.org/id3v2.4.0-structure
+		protected Encoding GetUtf16BomEncoding( byte bomByte ) {
+			switch ( bomByte ) {
+				case 0xFF:
+					return Encoding.Unicode;
+
+				case 0xFE:
+					return Encoding.BigEndianUnicode;
+
+				default:
+					throw new ArgumentException( $"Unknown BOM: {bomByte:X}" );
+			}
+		}
+
 		protected abstract void ProcessFrameBody();
 
 		public static Id3Frame? GetNextFrame( BinaryReader binaryReader ) {
@@ -61,8 +101,11 @@ namespace Mp3TagReader {
 			// Declared ID3v2 frames
 			// https://id3.org/id3v2.3.0#Declared_ID3v2_frames
 			switch ( frameId ) {
+				case "COMM":
+					return new Id3CommentFrame( frameId, binaryReader );
+
 				case "PRIV":
-					return new Id3PrivateFrame( frameId, "Private frame", binaryReader );
+					return new Id3PrivateFrame( frameId, binaryReader );
 
 				case "TALB":
 					return new Id3TextInformationFrame( frameId, "Album/Movie/Show title", binaryReader );

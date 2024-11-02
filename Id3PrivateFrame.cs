@@ -5,7 +5,7 @@ namespace Mp3TagReader {
 	// Private frame
 	// https://id3.org/id3v2.3.0#Private_frame
 	internal class Id3PrivateFrame : Id3Frame {
-		public Id3PrivateFrame( string frameId, string frameIdName, BinaryReader binaryReader ) : base( frameId, frameIdName, binaryReader ) {
+		public Id3PrivateFrame( string frameId, BinaryReader binaryReader ) : base( frameId, "Private frame", binaryReader ) {
 			ProcessFrameBody();
 		}
 
