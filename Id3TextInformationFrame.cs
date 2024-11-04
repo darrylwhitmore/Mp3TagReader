@@ -14,15 +14,17 @@ namespace Mp3TagReader {
 			var encoding = GetEncoding( FrameBody[0] );
 			var bytesLength = FrameBody.Length - 1;
 
-			var terminatedString = new NullTerminatedStringReader( FrameBody, 1, encoding );
+			var stringReader = new StringReader( FrameBody, 1, FrameBody.Length - 1, encoding );
 
 
-			if ( Equals( encoding, Encoding.Unicode ) ) {
-				encoding = GetUtf16BomEncoding( FrameBody[1] );
-				bytesLength = FrameBody.Length - 3;
-			}
+			//if ( Equals( encoding, Encoding.Unicode ) ) {
+			//	encoding = GetUtf16BomEncoding( FrameBody[1] );
+			//	bytesLength = FrameBody.Length - 3;
+			//}
 
-			Text = encoding.GetString( FrameBody.TakeLast( bytesLength ).ToArray() );
+			//Text = encoding.GetString( FrameBody.TakeLast( bytesLength ).ToArray() );
+
+			Text = stringReader.ReadString();
 		}
 	}
 }

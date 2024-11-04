@@ -69,20 +69,20 @@ namespace Mp3TagReader {
 			}
 		}
 
-		// ID3v2 frame overview
-		// https://id3.org/id3v2.4.0-structure
-		protected Encoding GetUtf16BomEncoding( byte bomByte ) {
-			switch ( bomByte ) {
-				case 0xFF:
-					return Encoding.Unicode;
+		//// ID3v2 frame overview
+		//// https://id3.org/id3v2.4.0-structure
+		//protected Encoding GetUtf16BomEncoding( byte bomByte ) {
+		//	switch ( bomByte ) {
+		//		case 0xFF:
+		//			return Encoding.Unicode;
 
-				case 0xFE:
-					return Encoding.BigEndianUnicode;
+		//		case 0xFE:
+		//			return Encoding.BigEndianUnicode;
 
-				default:
-					throw new ArgumentException( $"Unknown BOM: {bomByte:X}" );
-			}
-		}
+		//		default:
+		//			throw new ArgumentException( $"Unknown BOM: {bomByte:X}" );
+		//	}
+		//}
 
 		protected abstract void ProcessFrameBody();
 
