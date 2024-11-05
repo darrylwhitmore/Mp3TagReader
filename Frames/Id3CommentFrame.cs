@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace Mp3TagReader.Frames {
 	// Comments
 	// https://id3.org/id3v2.3.0#Comments
-	internal class Id3CommentFrame : Id3Frame {
+	internal sealed class Id3CommentFrame : Id3Frame {
 		public Id3CommentFrame( string frameId, BinaryReader binaryReader ) : base( frameId, "Comments", binaryReader ) {
 			ProcessFrameBody();
 		}

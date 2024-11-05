@@ -16,10 +16,10 @@ namespace Mp3TagReader.Frames {
 		public int PrivateDataLength { get; private set; }
 
 		protected override void ProcessFrameBody() {
-			var ownerIdReader = new StringReader( FrameBody, 0, FrameBody.Length - 1, Encoding.Latin1 );
-			OwnerIdentifier = ownerIdReader.ReadString();
+			var stringReader = new StringReader( FrameBody, 0, FrameBody.Length - 1, Encoding.Latin1 );
+			OwnerIdentifier = stringReader.ReadString();
 
-			PrivateDataLength = FrameBody.Length - ownerIdReader.CurrentIndex;
+			PrivateDataLength = FrameBody.Length - stringReader.CurrentIndex;
 		}
 	}
 }

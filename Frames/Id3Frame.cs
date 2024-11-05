@@ -139,6 +139,9 @@ namespace Mp3TagReader.Frames {
 				case "TYER":
 					return new Id3TextInformationFrame( frameId, "Year", binaryReader );
 
+				case "TXXX":
+					return new Id3UserDefinedTextInformationFrame( frameId, binaryReader );
+
 				default:
 					return new Id3UnimplementedFrame( frameId, binaryReader );
 			}
