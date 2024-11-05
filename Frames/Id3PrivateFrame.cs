@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Newtonsoft.Json;
 
-namespace Mp3TagReader {
+namespace Mp3TagReader.Frames {
 	// Private frame
 	// https://id3.org/id3v2.3.0#Private_frame
 	internal class Id3PrivateFrame : Id3Frame {

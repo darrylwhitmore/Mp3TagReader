@@ -1,4 +1,6 @@
-﻿namespace Mp3TagReader {
+﻿using Mp3TagReader.Frames;
+
+namespace Mp3TagReader {
 	// ID3 tag version 2.3.0
 	// https://id3.org/id3v2.3.0#ID3_tag_version_2.3.0
 	internal class Id3Tag {

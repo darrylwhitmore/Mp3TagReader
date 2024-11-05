@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using Newtonsoft.Json;
 
-namespace Mp3TagReader {
+namespace Mp3TagReader.Frames {
 	internal class Id3TextInformationFrame : Id3Frame {
 		public Id3TextInformationFrame( string frameId, string frameIdName, BinaryReader binaryReader ) : base( frameId, frameIdName, binaryReader ) {
 			ProcessFrameBody();
