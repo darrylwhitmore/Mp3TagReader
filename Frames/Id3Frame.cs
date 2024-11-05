@@ -145,6 +145,9 @@ namespace Mp3TagReader.Frames {
 				case "TXXX":
 					return new Id3UserDefinedTextInformationFrame( frameId, binaryReader );
 
+				case "WXXX":
+					return new Id3UserDefinedUrlLinkFrame( frameId, binaryReader );
+
 				default:
 					return new Id3UnimplementedFrame( frameId, binaryReader );
 			}
