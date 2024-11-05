@@ -1,4 +1,4 @@
-﻿using System.Text;
+﻿using System.Data;
 using Newtonsoft.Json;
 
 namespace Mp3TagReader {
@@ -12,19 +12,14 @@ namespace Mp3TagReader {
 
 		protected override void ProcessFrameBody() {
 			var encoding = GetEncoding( FrameBody[0] );
-			var bytesLength = FrameBody.Length - 1;
 
 			var stringReader = new StringReader( FrameBody, 1, FrameBody.Length - 1, encoding );
 
-
-			//if ( Equals( encoding, Encoding.Unicode ) ) {
-			//	encoding = GetUtf16BomEncoding( FrameBody[1] );
-			//	bytesLength = FrameBody.Length - 3;
-			//}
-
-			//Text = encoding.GetString( FrameBody.TakeLast( bytesLength ).ToArray() );
-
 			Text = stringReader.ReadString();
+
+			if ( stringReader.CurrentIndex != FrameBody.Length ) {
+				throw new DataException( $"Frame '{FrameId}' may contain multiple values." );
+			}
 		}
 	}
 }

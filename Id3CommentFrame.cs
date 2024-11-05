@@ -21,41 +21,16 @@ namespace Mp3TagReader {
 		protected override void ProcessFrameBody() {
 			var currentIndex = 0;
 
-			var headerEncoding = GetEncoding( FrameBody[currentIndex] );
+			var textEncoding = GetEncoding( FrameBody[currentIndex] );
 			currentIndex++;
 
 			var languageReader = new StringReader( FrameBody, currentIndex, currentIndex + 2, Encoding.Latin1 );
 			Language = languageReader.ReadString();
 
-			var textReader = new StringReader( FrameBody, languageReader.CurrentIndex, FrameBody.Length - 1, headerEncoding );
+			var textReader = new StringReader( FrameBody, languageReader.CurrentIndex, FrameBody.Length - 1, textEncoding );
 			ShortContentDesc = textReader.ReadString();
 
 			Text = textReader.ReadString();
-
-			//Language = Encoding.Latin1.GetString( FrameBody.Skip( currentIndex ).Take( 3 ).ToArray() );
-			//currentIndex += 3;
-
-			//var encoding = headerEncoding;
-
-			//if ( Equals( headerEncoding, Encoding.Unicode ) ) {
-			//	encoding = GetUtf16BomEncoding( FrameBody[currentIndex] );
-			//	currentIndex += 2;
-			//}
-
-			//ShortContentDesc = encoding.GetString( FrameBody.Skip( currentIndex ).TakeWhile( b => b != 0 ).ToArray() );
-
-			//currentIndex += ShortContentDesc.Length + 2;
-
-			//encoding = headerEncoding;
-
-			//if ( Equals( headerEncoding, Encoding.Unicode ) ) {
-			//	encoding = GetUtf16BomEncoding( FrameBody[currentIndex] );
-			//	currentIndex += 2;
-			//}
-
-			//Text = encoding.GetString( FrameBody.Skip( currentIndex ).TakeWhile( b => b != 0 ).ToArray() );
-
-
 		}
 	}
 }

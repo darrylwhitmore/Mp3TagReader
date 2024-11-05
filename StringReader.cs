@@ -7,35 +7,10 @@ namespace Mp3TagReader {
 		private readonly int maxIndex;
 
 		public StringReader( byte[] sourceBytes, int startIndex, int maxIndex, Encoding encoding ) {
-			givenEncoding = encoding;
-
-			//if ( Equals( encoding, Encoding.Unicode ) ) {
-			//	givenEncoding = GetUtf16BomEncoding( sourceBytes[startIndex] );
-			//}
-
-			//var preamble = givenEncoding.GetPreamble();
-
 			this.sourceBytes = sourceBytes;
-			//CurrentIndex = startIndex + preamble.Length;
 			CurrentIndex = startIndex;
 			this.maxIndex = maxIndex;
-
-
-			//var terminatorBytes = encoding.GetBytes( $"{'\0'}" );
-
-			//
-			//var text = ReadString();
-			//
-
-			//var terminatorIndex = FindTerminatorIndex( terminatorBytes, frameBody, stringStartIndex, stringEndIndex );
-
-			//if ( terminatorIndex == -1 ) {
-			//	// The string was not terminated
-			//	terminatorIndex = stringEndIndex;
-			//}
-
-			//var s = encoding.GetString( frameBody.Skip( stringStartIndex ).Take( terminatorIndex - stringStartIndex ).ToArray() );
-
+			givenEncoding = encoding;
 		}
 
 		public int CurrentIndex { get; private set; }
@@ -51,13 +26,19 @@ namespace Mp3TagReader {
 
 			CurrentIndex += preamble.Length;
 
-
-
-
-
 			var stringBytes = new List<byte>();
 			var testString = string.Empty;
 
+			// Sometimes strings are null-terminated, and sometimes they
+			// terminate at the end of the range of source bytes. Read 
+			// until we hit either.
+			//
+			// A null terminator byte(s) is difficult to detect because characters 
+			// may be multibyte, nulls can be part of the character bytes, and
+			// endian-ness can place null character bytes next to null 
+			// terminator bytes. We use a brute force method of decoding and
+			// building the string character by character until we find a
+			// decoded null character.
 			for ( var i = CurrentIndex; i <= maxIndex; i++ ) {
 				stringBytes.Add( sourceBytes[i] );
 
@@ -72,26 +53,6 @@ namespace Mp3TagReader {
 			CurrentIndex += stringBytes.Count;
 
 			return testString;
-		}
-
-		private int FindTerminatorIndex( byte[] terminatorBytes, byte[] frameBody, int minIndex, int maxIndex ) {
-			for ( var i = maxIndex - terminatorBytes.Length + 1; i >= minIndex; i-- ) {
-				var found = true;
-
-				for ( var j = 0; j < terminatorBytes.Length; j++ ) {
-					if ( frameBody[i + j] != terminatorBytes[j] ) {
-						found = false;
-						break;
-					}
-				}
-
-				if ( found ) {
-					return i;
-				}
-			}
-
-			// Not found
-			return -1; 
 		}
 
 		private Encoding GetUtf16BomEncoding( byte bomByte ) {
