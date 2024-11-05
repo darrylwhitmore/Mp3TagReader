@@ -86,6 +86,9 @@ namespace Mp3TagReader.Frames {
 			// Declared ID3v2 frames
 			// https://id3.org/id3v2.3.0#Declared_ID3v2_frames
 			switch ( frameId ) {
+				case "APIC":
+					return new Id3AttachedPictureFrame( frameId, binaryReader );
+
 				case "COMM":
 					return new Id3CommentFrame( frameId, binaryReader );
 
