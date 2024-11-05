@@ -44,6 +44,31 @@ namespace Mp3TagReader {
 
 		public string Flags { get; private set; }
 
+		// ID3v2 frame overview
+		// https://id3.org/id3v2.4.0-structure
+		protected Encoding GetEncoding( byte encodingByte ) {
+			switch ( encodingByte ) {
+				case 0x0:
+					// ISO-8859-1
+					return Encoding.Latin1;
+
+				case 0x1:
+					// UTF-16 with BOM
+					return Encoding.Unicode;
+
+				case 0x2:
+					// UTF-16 without BOM
+					return Encoding.BigEndianUnicode;
+
+				case 0x3:
+					// UTF-8
+					return Encoding.UTF8;
+
+				default:
+					throw new ArgumentException( $"Unknown encoding byte: {encodingByte:X}" );
+			}
+		}
+
 		protected abstract void ProcessFrameBody();
 
 		public static Id3Frame? GetNextFrame( BinaryReader binaryReader ) {
@@ -61,8 +86,11 @@ namespace Mp3TagReader {
 			// Declared ID3v2 frames
 			// https://id3.org/id3v2.3.0#Declared_ID3v2_frames
 			switch ( frameId ) {
+				case "COMM":
+					return new Id3CommentFrame( frameId, binaryReader );
+
 				case "PRIV":
-					return new Id3PrivateFrame( frameId, "Private frame", binaryReader );
+					return new Id3PrivateFrame( frameId, binaryReader );
 
 				case "TALB":
 					return new Id3TextInformationFrame( frameId, "Album/Movie/Show title", binaryReader );
@@ -82,6 +110,9 @@ namespace Mp3TagReader {
 				case "TLEN":
 					return new Id3TextInformationFrame( frameId, "Length", binaryReader );
 
+				case "TMED":
+					return new Id3TextInformationFrame( frameId, "Media type", binaryReader );
+
 				case "TPE1":
 					return new Id3TextInformationFrame( frameId, "Lead performer(s)/Soloist(s)", binaryReader );
 
@@ -94,8 +125,16 @@ namespace Mp3TagReader {
 				case "TPOS":
 					return new Id3TextInformationFrame( frameId, "Part of a set", binaryReader );
 
+				case "TPUB":
+					return new Id3TextInformationFrame( frameId, "Publisher", binaryReader );
+
 				case "TRCK":
 					return new Id3TextInformationFrame( frameId, "Track number/Position in set", binaryReader );
+
+				case "TSO2":
+					// Off-Spec Frames
+					// https://mutagen-specs.readthedocs.io/en/latest/id3/id3v2-other-frames.html
+					return new Id3TextInformationFrame( frameId, "iTunes Album Artist Sort", binaryReader );
 
 				case "TYER":
 					return new Id3TextInformationFrame( frameId, "Year", binaryReader );
