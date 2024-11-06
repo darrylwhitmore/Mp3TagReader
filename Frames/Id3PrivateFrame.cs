@@ -4,8 +4,8 @@ using Newtonsoft.Json;
 namespace Mp3TagReader.Frames {
 	// Private frame
 	// https://id3.org/id3v2.3.0#Private_frame
-	internal class Id3PrivateFrame : Id3Frame {
-		public Id3PrivateFrame( string frameId, BinaryReader binaryReader ) : base( frameId, "Private frame", binaryReader ) {
+	internal sealed class Id3PrivateFrame : Id3Frame {
+		public Id3PrivateFrame( string frameId, BinaryReader binaryReader ) : base( frameId, binaryReader ) {
 			ProcessFrameBody();
 		}
 

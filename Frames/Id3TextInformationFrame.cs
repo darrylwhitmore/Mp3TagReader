@@ -2,7 +2,7 @@
 
 namespace Mp3TagReader.Frames {
 	internal sealed class Id3TextInformationFrame : Id3Frame {
-		public Id3TextInformationFrame( string frameId, string frameIdName, BinaryReader binaryReader ) : base( frameId, frameIdName, binaryReader ) {
+		public Id3TextInformationFrame( string frameId, BinaryReader binaryReader ) : base( frameId, binaryReader ) {
 			ProcessFrameBody();
 		}
 

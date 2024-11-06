@@ -61,6 +61,15 @@ namespace Mp3TagReader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Audio encryption.
+        /// </summary>
+        internal static string AENC_Name {
+            get {
+                return ResourceManager.GetString("AENC:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Other.
         /// </summary>
         internal static string APIC_00 {
@@ -246,6 +255,672 @@ namespace Mp3TagReader.Properties {
         internal static string APIC_14 {
             get {
                 return ResourceManager.GetString("APIC:14", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attached picture.
+        /// </summary>
+        internal static string APIC_Name {
+            get {
+                return ResourceManager.GetString("APIC:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comments.
+        /// </summary>
+        internal static string COMM_Name {
+            get {
+                return ResourceManager.GetString("COMM:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Commercial.
+        /// </summary>
+        internal static string COMR_Name {
+            get {
+                return ResourceManager.GetString("COMR:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encryption method registration.
+        /// </summary>
+        internal static string ENCR_Name {
+            get {
+                return ResourceManager.GetString("ENCR:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Equalization.
+        /// </summary>
+        internal static string EQUA_Name {
+            get {
+                return ResourceManager.GetString("EQUA:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event timing codes.
+        /// </summary>
+        internal static string ETCO_Name {
+            get {
+                return ResourceManager.GetString("ETCO:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General encapsulated object.
+        /// </summary>
+        internal static string GEOB_Name {
+            get {
+                return ResourceManager.GetString("GEOB:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group identification registration.
+        /// </summary>
+        internal static string GRID_Name {
+            get {
+                return ResourceManager.GetString("GRID:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Involved people list.
+        /// </summary>
+        internal static string IPLS_Name {
+            get {
+                return ResourceManager.GetString("IPLS:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Linked information.
+        /// </summary>
+        internal static string LINK_Name {
+            get {
+                return ResourceManager.GetString("LINK:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Music CD identifier.
+        /// </summary>
+        internal static string MCDI_Name {
+            get {
+                return ResourceManager.GetString("MCDI:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MPEG location lookup table.
+        /// </summary>
+        internal static string MLLT_Name {
+            get {
+                return ResourceManager.GetString("MLLT:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ownership.
+        /// </summary>
+        internal static string OWNE_Name {
+            get {
+                return ResourceManager.GetString("OWNE:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play counter.
+        /// </summary>
+        internal static string PCNT_Name {
+            get {
+                return ResourceManager.GetString("PCNT:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Popularimeter.
+        /// </summary>
+        internal static string POPM_Name {
+            get {
+                return ResourceManager.GetString("POPM:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Position synchronisation.
+        /// </summary>
+        internal static string POSS_Name {
+            get {
+                return ResourceManager.GetString("POSS:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Private.
+        /// </summary>
+        internal static string PRIV_Name {
+            get {
+                return ResourceManager.GetString("PRIV:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recommended buffer size.
+        /// </summary>
+        internal static string RBUF_Name {
+            get {
+                return ResourceManager.GetString("RBUF:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Relative volume adjustment.
+        /// </summary>
+        internal static string RVAD_Name {
+            get {
+                return ResourceManager.GetString("RVAD:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reverb.
+        /// </summary>
+        internal static string RVRB_Name {
+            get {
+                return ResourceManager.GetString("RVRB:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Synchronized lyric/text.
+        /// </summary>
+        internal static string SYLT_Name {
+            get {
+                return ResourceManager.GetString("SYLT:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Synchronized tempo codes.
+        /// </summary>
+        internal static string SYTC_Name {
+            get {
+                return ResourceManager.GetString("SYTC:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Album/Movie/Show title.
+        /// </summary>
+        internal static string TALB_Name {
+            get {
+                return ResourceManager.GetString("TALB:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BPM (beats per minute).
+        /// </summary>
+        internal static string TBPM_Name {
+            get {
+                return ResourceManager.GetString("TBPM:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Composer.
+        /// </summary>
+        internal static string TCOM_Name {
+            get {
+                return ResourceManager.GetString("TCOM:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content type.
+        /// </summary>
+        internal static string TCON_Name {
+            get {
+                return ResourceManager.GetString("TCON:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copyright message.
+        /// </summary>
+        internal static string TCOP_Name {
+            get {
+                return ResourceManager.GetString("TCOP:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        internal static string TDAT_Name {
+            get {
+                return ResourceManager.GetString("TDAT:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Playlist delay.
+        /// </summary>
+        internal static string TDLY_Name {
+            get {
+                return ResourceManager.GetString("TDLY:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encoded by.
+        /// </summary>
+        internal static string TENC_Name {
+            get {
+                return ResourceManager.GetString("TENC:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lyricist/Text writer.
+        /// </summary>
+        internal static string TEXT_Name {
+            get {
+                return ResourceManager.GetString("TEXT:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File type.
+        /// </summary>
+        internal static string TFLT_Name {
+            get {
+                return ResourceManager.GetString("TFLT:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time.
+        /// </summary>
+        internal static string TIME_Name {
+            get {
+                return ResourceManager.GetString("TIME:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content group description.
+        /// </summary>
+        internal static string TIT1_Name {
+            get {
+                return ResourceManager.GetString("TIT1:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title/songname/content description.
+        /// </summary>
+        internal static string TIT2_Name {
+            get {
+                return ResourceManager.GetString("TIT2:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subtitle/Description refinement.
+        /// </summary>
+        internal static string TIT3_Name {
+            get {
+                return ResourceManager.GetString("TIT3:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initial key.
+        /// </summary>
+        internal static string TKEY_Name {
+            get {
+                return ResourceManager.GetString("TKEY:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language(s).
+        /// </summary>
+        internal static string TLAN_Name {
+            get {
+                return ResourceManager.GetString("TLAN:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Length.
+        /// </summary>
+        internal static string TLEN_Name {
+            get {
+                return ResourceManager.GetString("TLEN:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Media type.
+        /// </summary>
+        internal static string TMED_Name {
+            get {
+                return ResourceManager.GetString("TMED:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Original album/movie/show title.
+        /// </summary>
+        internal static string TOAL_Name {
+            get {
+                return ResourceManager.GetString("TOAL:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Original filename.
+        /// </summary>
+        internal static string TOFN_Name {
+            get {
+                return ResourceManager.GetString("TOFN:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Original lyricist(s)/text writer(s).
+        /// </summary>
+        internal static string TOLY_Name {
+            get {
+                return ResourceManager.GetString("TOLY:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Original artist(s)/performer(s).
+        /// </summary>
+        internal static string TOPE_Name {
+            get {
+                return ResourceManager.GetString("TOPE:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Original release year.
+        /// </summary>
+        internal static string TORY_Name {
+            get {
+                return ResourceManager.GetString("TORY:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File owner/licensee.
+        /// </summary>
+        internal static string TOWN_Name {
+            get {
+                return ResourceManager.GetString("TOWN:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lead performer(s)/Soloist(s).
+        /// </summary>
+        internal static string TPE1_Name {
+            get {
+                return ResourceManager.GetString("TPE1:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Band/orchestra/accompaniment.
+        /// </summary>
+        internal static string TPE2_Name {
+            get {
+                return ResourceManager.GetString("TPE2:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conductor/performer refinement.
+        /// </summary>
+        internal static string TPE3_Name {
+            get {
+                return ResourceManager.GetString("TPE3:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Interpreted, remixed, or otherwise modified by.
+        /// </summary>
+        internal static string TPE4_Name {
+            get {
+                return ResourceManager.GetString("TPE4:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Part of a set.
+        /// </summary>
+        internal static string TPOS_Name {
+            get {
+                return ResourceManager.GetString("TPOS:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publisher.
+        /// </summary>
+        internal static string TPUB_Name {
+            get {
+                return ResourceManager.GetString("TPUB:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Track number/Position in set.
+        /// </summary>
+        internal static string TRCK_Name {
+            get {
+                return ResourceManager.GetString("TRCK:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recording dates.
+        /// </summary>
+        internal static string TRDA_Name {
+            get {
+                return ResourceManager.GetString("TRDA:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Internet radio station name.
+        /// </summary>
+        internal static string TRSN_Name {
+            get {
+                return ResourceManager.GetString("TRSN:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Internet radio station owner.
+        /// </summary>
+        internal static string TRSO_Name {
+            get {
+                return ResourceManager.GetString("TRSO:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Size.
+        /// </summary>
+        internal static string TSIZ_Name {
+            get {
+                return ResourceManager.GetString("TSIZ:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to iTunes Album Artist Sort.
+        /// </summary>
+        internal static string TSO2_Name {
+            get {
+                return ResourceManager.GetString("TSO2:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ISRC (international standard recording code).
+        /// </summary>
+        internal static string TSRC_Name {
+            get {
+                return ResourceManager.GetString("TSRC:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Software/Hardware and settings used for encoding.
+        /// </summary>
+        internal static string TSSE_Name {
+            get {
+                return ResourceManager.GetString("TSSE:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User defined text information.
+        /// </summary>
+        internal static string TXXX_Name {
+            get {
+                return ResourceManager.GetString("TXXX:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Year.
+        /// </summary>
+        internal static string TYER_Name {
+            get {
+                return ResourceManager.GetString("TYER:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unique file identifier.
+        /// </summary>
+        internal static string UFID_Name {
+            get {
+                return ResourceManager.GetString("UFID:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Terms of use.
+        /// </summary>
+        internal static string USER_Name {
+            get {
+                return ResourceManager.GetString("USER:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsychronized lyric/text transcription.
+        /// </summary>
+        internal static string USLT_Name {
+            get {
+                return ResourceManager.GetString("USLT:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Commercial information.
+        /// </summary>
+        internal static string WCOM_Name {
+            get {
+                return ResourceManager.GetString("WCOM:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copyright/Legal information.
+        /// </summary>
+        internal static string WCOP_Name {
+            get {
+                return ResourceManager.GetString("WCOP:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Official audio file webpage.
+        /// </summary>
+        internal static string WOAF_Name {
+            get {
+                return ResourceManager.GetString("WOAF:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Official artist/performer webpage.
+        /// </summary>
+        internal static string WOAR_Name {
+            get {
+                return ResourceManager.GetString("WOAR:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Official audio source webpage.
+        /// </summary>
+        internal static string WOAS_Name {
+            get {
+                return ResourceManager.GetString("WOAS:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Official internet radio station homepage.
+        /// </summary>
+        internal static string WORS_Name {
+            get {
+                return ResourceManager.GetString("WORS:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payment.
+        /// </summary>
+        internal static string WPAY_Name {
+            get {
+                return ResourceManager.GetString("WPAY:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publishers official webpage.
+        /// </summary>
+        internal static string WPUB_Name {
+            get {
+                return ResourceManager.GetString("WPUB:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User defined URL link.
+        /// </summary>
+        internal static string WXXX_Name {
+            get {
+                return ResourceManager.GetString("WXXX:Name", resourceCulture);
             }
         }
     }

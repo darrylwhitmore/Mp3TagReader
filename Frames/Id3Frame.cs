@@ -5,9 +5,9 @@ namespace Mp3TagReader.Frames {
 	// ID3v2 frame overview
 	// https://id3.org/id3v2.3.0#ID3v2_frame_overview
 	internal abstract class Id3Frame {
-		protected Id3Frame( string frameId, string frameIdName, BinaryReader binaryReader ) {
+		protected Id3Frame( string frameId, BinaryReader binaryReader ) {
 			FrameId = frameId;
-			FrameIdDisplay = $"{FrameId} ({frameIdName})";
+			FrameIdDisplay = $"{FrameId} ({GetResourceString( "Name" )})";
 
 			var frameSizeRaw = new byte[4];
 			var frameFlags = new byte[2];
@@ -108,51 +108,51 @@ namespace Mp3TagReader.Frames {
 					return new Id3PrivateFrame( frameId, binaryReader );
 
 				case "TALB":
-					return new Id3TextInformationFrame( frameId, "Album/Movie/Show title", binaryReader );
+					return new Id3TextInformationFrame( frameId, binaryReader );
 
 				case "TCOM":
-					return new Id3TextInformationFrame( frameId, "Composer", binaryReader );
+					return new Id3TextInformationFrame( frameId, binaryReader );
 
 				case "TCON":
-					return new Id3TextInformationFrame( frameId, "Content type", binaryReader );
+					return new Id3TextInformationFrame( frameId, binaryReader );
 
 				case "TCOP":
-					return new Id3TextInformationFrame( frameId, "Copyright message", binaryReader );
+					return new Id3TextInformationFrame( frameId, binaryReader );
 
 				case "TIT2":
-					return new Id3TextInformationFrame( frameId, "Title/songname/content description", binaryReader );
+					return new Id3TextInformationFrame( frameId, binaryReader );
 
 				case "TLEN":
-					return new Id3TextInformationFrame( frameId, "Length", binaryReader );
+					return new Id3TextInformationFrame( frameId, binaryReader );
 
 				case "TMED":
-					return new Id3TextInformationFrame( frameId, "Media type", binaryReader );
+					return new Id3TextInformationFrame( frameId, binaryReader );
 
 				case "TPE1":
-					return new Id3TextInformationFrame( frameId, "Lead performer(s)/Soloist(s)", binaryReader );
+					return new Id3TextInformationFrame( frameId, binaryReader );
 
 				case "TPE2":
-					return new Id3TextInformationFrame( frameId, "Band/orchestra/accompaniment", binaryReader );
+					return new Id3TextInformationFrame( frameId, binaryReader );
 
 				case "TPE3":
-					return new Id3TextInformationFrame( frameId, "Conductor/performer refinement", binaryReader );
+					return new Id3TextInformationFrame( frameId, binaryReader );
 
 				case "TPOS":
-					return new Id3TextInformationFrame( frameId, "Part of a set", binaryReader );
+					return new Id3TextInformationFrame( frameId, binaryReader );
 
 				case "TPUB":
-					return new Id3TextInformationFrame( frameId, "Publisher", binaryReader );
+					return new Id3TextInformationFrame( frameId, binaryReader );
 
 				case "TRCK":
-					return new Id3TextInformationFrame( frameId, "Track number/Position in set", binaryReader );
+					return new Id3TextInformationFrame( frameId, binaryReader );
 
 				case "TSO2":
 					// Off-Spec Frames
 					// https://mutagen-specs.readthedocs.io/en/latest/id3/id3v2-other-frames.html
-					return new Id3TextInformationFrame( frameId, "iTunes Album Artist Sort", binaryReader );
+					return new Id3TextInformationFrame( frameId, binaryReader );
 
 				case "TYER":
-					return new Id3TextInformationFrame( frameId, "Year", binaryReader );
+					return new Id3TextInformationFrame( frameId, binaryReader );
 
 				case "TXXX":
 					return new Id3UserDefinedTextInformationFrame( frameId, binaryReader );
