@@ -97,6 +97,15 @@ namespace Mp3TagReader.Frames {
 
 			// Declared ID3v2 frames
 			// https://id3.org/id3v2.3.0#Declared_ID3v2_frames
+
+			if ( frameId == "TXXX" ) {
+				return new Id3UserDefinedTextInformationFrame( frameId, binaryReader );
+			}
+
+			if ( frameId.StartsWith( "T" ) ) {
+				return new Id3TextInformationFrame( frameId, binaryReader );
+			}
+
 			switch ( frameId ) {
 				case "APIC":
 					return new Id3AttachedPictureFrame( frameId, binaryReader );
@@ -106,56 +115,6 @@ namespace Mp3TagReader.Frames {
 
 				case "PRIV":
 					return new Id3PrivateFrame( frameId, binaryReader );
-
-				case "TALB":
-					return new Id3TextInformationFrame( frameId, binaryReader );
-
-				case "TCOM":
-					return new Id3TextInformationFrame( frameId, binaryReader );
-
-				case "TCON":
-					return new Id3TextInformationFrame( frameId, binaryReader );
-
-				case "TCOP":
-					return new Id3TextInformationFrame( frameId, binaryReader );
-
-				case "TIT2":
-					return new Id3TextInformationFrame( frameId, binaryReader );
-
-				case "TLEN":
-					return new Id3TextInformationFrame( frameId, binaryReader );
-
-				case "TMED":
-					return new Id3TextInformationFrame( frameId, binaryReader );
-
-				case "TPE1":
-					return new Id3TextInformationFrame( frameId, binaryReader );
-
-				case "TPE2":
-					return new Id3TextInformationFrame( frameId, binaryReader );
-
-				case "TPE3":
-					return new Id3TextInformationFrame( frameId, binaryReader );
-
-				case "TPOS":
-					return new Id3TextInformationFrame( frameId, binaryReader );
-
-				case "TPUB":
-					return new Id3TextInformationFrame( frameId, binaryReader );
-
-				case "TRCK":
-					return new Id3TextInformationFrame( frameId, binaryReader );
-
-				case "TSO2":
-					// Off-Spec Frames
-					// https://mutagen-specs.readthedocs.io/en/latest/id3/id3v2-other-frames.html
-					return new Id3TextInformationFrame( frameId, binaryReader );
-
-				case "TYER":
-					return new Id3TextInformationFrame( frameId, binaryReader );
-
-				case "TXXX":
-					return new Id3UserDefinedTextInformationFrame( frameId, binaryReader );
 
 				case "WXXX":
 					return new Id3UserDefinedUrlLinkFrame( frameId, binaryReader );
