@@ -113,6 +113,9 @@ namespace Mp3TagReader.Frames {
 				case "COMM":
 					return new Id3CommentFrame( frameId, binaryReader );
 
+				case "MCDI":
+					return new Id3MusicCdIdentifierFrame( frameId, binaryReader );
+
 				case "PRIV":
 					return new Id3PrivateFrame( frameId, binaryReader );
 
