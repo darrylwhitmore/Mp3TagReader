@@ -27,7 +27,10 @@ namespace Mp3TagReader.Frames {
 
 			MimeType = stringReader.ReadString();
 
-			PictureType = $"0x{FrameBody[stringReader.CurrentIndex]:X}";
+			var pictureType = FrameBody[stringReader.CurrentIndex];
+			var pictureTypeDesc = GetResourceString( $"{pictureType:X2}" );
+
+			PictureType = $"0x{pictureType:X2} ({pictureTypeDesc})";
 
 			stringReader = new StringReader( FrameBody, stringReader.CurrentIndex + 1, FrameBody.Length - 1, encoding );
 

@@ -69,6 +69,18 @@ namespace Mp3TagReader.Frames {
 			}
 		}
 
+		protected string GetResourceString( string partialKey ) {
+			var key = $"{FrameId}:{partialKey}";
+
+			var str =  Properties.Resources.ResourceManager.GetString( key );
+
+			if (str != null ) {
+				return str;
+			}
+
+			throw new ArgumentException( $"Resource string not found: '{key}'" );
+		}
+
 		protected abstract void ProcessFrameBody();
 
 		public static Id3Frame? GetNextFrame( BinaryReader binaryReader ) {
