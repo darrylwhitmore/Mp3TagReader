@@ -11,6 +11,14 @@
     "Profile 2": {
       "commandName": "Project",
       "commandLineArgs": "-fs \"\\\\SEQUOIA3\\Music\\Various Artists\\Classic Rock- 1966 - Blowin' Your Mind\\14 Rhapsody In The Rain.mp3\""
+    },
+    "Profile 3": {
+      "commandName": "Project",
+      "commandLineArgs": "-fs \"\\\\Sequoia3\\music\\Annie Lennox\\Medusa\\01 - No More _I Love You's_.mp3\" -of:\"D:\\Junk\\mp3tagreadwrite\"  "
+    },
+    "Profile 4": {
+      "commandName": "Project",
+      "commandLineArgs": "-fs \"D:\\Junk\\mp3tagreadwrite\\05 Touch Me In The Morning AMPED.mp3\""
     }
   }
 }
