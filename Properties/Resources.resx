@@ -401,9 +401,63 @@
   </data>
   <data name="WXXX:Name" xml:space="preserve">
     <value>User defined URL link</value>
-    <comment>Off-Spec Frames: https://mutagen-specs.readthedocs.io/en/latest/id3/id3v2-other-frames.html</comment>
+  </data>
+  <data name="ASPI:Name" xml:space="preserve">
+    <value>Audio seek point index</value>
+  </data>
+  <data name="EQU2:Name" xml:space="preserve">
+    <value>Equalisation (2)</value>
+  </data>
+  <data name="RVA2:Name" xml:space="preserve">
+    <value>Relative volume adjustment (2)</value>
+  </data>
+  <data name="SEEK:Name" xml:space="preserve">
+    <value>Seek</value>
+  </data>
+  <data name="SIGN:Name" xml:space="preserve">
+    <value>Signature</value>
+  </data>
+  <data name="TDEN:Name" xml:space="preserve">
+    <value>Encoding time</value>
+  </data>
+  <data name="TDOR:Name" xml:space="preserve">
+    <value>Original release time</value>
+  </data>
+  <data name="TDRC:Name" xml:space="preserve">
+    <value>Recording time</value>
+  </data>
+  <data name="TDRL:Name" xml:space="preserve">
+    <value>Release time</value>
+  </data>
+  <data name="TDTG:Name" xml:space="preserve">
+    <value>Tagging time</value>
+  </data>
+  <data name="TIPL:Name" xml:space="preserve">
+    <value>Involved people list</value>
+  </data>
+  <data name="TMCL:Name" xml:space="preserve">
+    <value>Musician credits list</value>
+  </data>
+  <data name="TMOO:Name" xml:space="preserve">
+    <value>Mood</value>
+  </data>
+  <data name="TPRO:Name" xml:space="preserve">
+    <value>Produced notice</value>
   </data>
   <data name="TSO2:Name" xml:space="preserve">
     <value>iTunes Album Artist Sort</value>
+    <comment>Off-Spec Frames: https://mutagen-specs.readthedocs.io/en/latest/id3/id3v2-other-frames.html</comment>
+  </data>
+  <data name="TSOA:Name" xml:space="preserve">
+    <value>Album sort order</value>
+  </data>
+  <data name="TSOP:Name" xml:space="preserve">
+    <value>Performer sort order</value>
+  </data>
+  <data name="TSOT:Name" xml:space="preserve">
+    <value>Title sort order</value>
+  </data>
+  <data name="TSST:Name" xml:space="preserve">
+    <value>Set subtitle</value>
   </data>
 </root>

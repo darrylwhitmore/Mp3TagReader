@@ -7,7 +7,9 @@ namespace Mp3TagReader.Frames {
 	internal abstract class Id3Frame {
 		protected Id3Frame( string frameId, BinaryReader binaryReader ) {
 			FrameId = frameId;
-			FrameIdDisplay = $"{FrameId} ({GetResourceString( "Name" )})";
+
+			var frameName = GetResourceString( "Name" );
+			FrameIdDisplay = string.IsNullOrEmpty( frameName ) ? $"{FrameId}" : $"{FrameId} ({frameName})";
 
 			var frameSizeRaw = new byte[4];
 			var frameFlags = new byte[2];
@@ -69,16 +71,10 @@ namespace Mp3TagReader.Frames {
 			}
 		}
 
-		protected string GetResourceString( string partialKey ) {
+		protected string? GetResourceString( string partialKey ) {
 			var key = $"{FrameId}:{partialKey}";
 
-			var str =  Properties.Resources.ResourceManager.GetString( key );
-
-			if (str != null ) {
-				return str;
-			}
-
-			throw new ArgumentException( $"Resource string not found: '{key}'" );
+			return Properties.Resources.ResourceManager.GetString( key );
 		}
 
 		protected abstract void ProcessFrameBody();

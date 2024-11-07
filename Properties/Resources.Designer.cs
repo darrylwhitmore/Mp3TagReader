@@ -268,6 +268,15 @@ namespace Mp3TagReader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Audio seek point index.
+        /// </summary>
+        internal static string ASPI_Name {
+            get {
+                return ResourceManager.GetString("ASPI:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comments.
         /// </summary>
         internal static string COMM_Name {
@@ -291,6 +300,15 @@ namespace Mp3TagReader.Properties {
         internal static string ENCR_Name {
             get {
                 return ResourceManager.GetString("ENCR:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Equalisation (2).
+        /// </summary>
+        internal static string EQU2_Name {
+            get {
+                return ResourceManager.GetString("EQU2:Name", resourceCulture);
             }
         }
         
@@ -421,6 +439,15 @@ namespace Mp3TagReader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Relative volume adjustment (2).
+        /// </summary>
+        internal static string RVA2_Name {
+            get {
+                return ResourceManager.GetString("RVA2:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Relative volume adjustment.
         /// </summary>
         internal static string RVAD_Name {
@@ -435,6 +462,24 @@ namespace Mp3TagReader.Properties {
         internal static string RVRB_Name {
             get {
                 return ResourceManager.GetString("RVRB:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seek.
+        /// </summary>
+        internal static string SEEK_Name {
+            get {
+                return ResourceManager.GetString("SEEK:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Signature.
+        /// </summary>
+        internal static string SIGN_Name {
+            get {
+                return ResourceManager.GetString("SIGN:Name", resourceCulture);
             }
         }
         
@@ -511,11 +556,56 @@ namespace Mp3TagReader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Encoding time.
+        /// </summary>
+        internal static string TDEN_Name {
+            get {
+                return ResourceManager.GetString("TDEN:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Playlist delay.
         /// </summary>
         internal static string TDLY_Name {
             get {
                 return ResourceManager.GetString("TDLY:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Original release time.
+        /// </summary>
+        internal static string TDOR_Name {
+            get {
+                return ResourceManager.GetString("TDOR:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recording time.
+        /// </summary>
+        internal static string TDRC_Name {
+            get {
+                return ResourceManager.GetString("TDRC:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Release time.
+        /// </summary>
+        internal static string TDRL_Name {
+            get {
+                return ResourceManager.GetString("TDRL:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tagging time.
+        /// </summary>
+        internal static string TDTG_Name {
+            get {
+                return ResourceManager.GetString("TDTG:Name", resourceCulture);
             }
         }
         
@@ -552,6 +642,15 @@ namespace Mp3TagReader.Properties {
         internal static string TIME_Name {
             get {
                 return ResourceManager.GetString("TIME:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Involved people list.
+        /// </summary>
+        internal static string TIPL_Name {
+            get {
+                return ResourceManager.GetString("TIPL:Name", resourceCulture);
             }
         }
         
@@ -610,11 +709,29 @@ namespace Mp3TagReader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Musician credits list.
+        /// </summary>
+        internal static string TMCL_Name {
+            get {
+                return ResourceManager.GetString("TMCL:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Media type.
         /// </summary>
         internal static string TMED_Name {
             get {
                 return ResourceManager.GetString("TMED:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mood.
+        /// </summary>
+        internal static string TMOO_Name {
+            get {
+                return ResourceManager.GetString("TMOO:Name", resourceCulture);
             }
         }
         
@@ -718,6 +835,15 @@ namespace Mp3TagReader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Produced notice.
+        /// </summary>
+        internal static string TPRO_Name {
+            get {
+                return ResourceManager.GetString("TPRO:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Publisher.
         /// </summary>
         internal static string TPUB_Name {
@@ -781,6 +907,33 @@ namespace Mp3TagReader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Album sort order.
+        /// </summary>
+        internal static string TSOA_Name {
+            get {
+                return ResourceManager.GetString("TSOA:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Performer sort order.
+        /// </summary>
+        internal static string TSOP_Name {
+            get {
+                return ResourceManager.GetString("TSOP:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title sort order.
+        /// </summary>
+        internal static string TSOT_Name {
+            get {
+                return ResourceManager.GetString("TSOT:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ISRC (international standard recording code).
         /// </summary>
         internal static string TSRC_Name {
@@ -795,6 +948,15 @@ namespace Mp3TagReader.Properties {
         internal static string TSSE_Name {
             get {
                 return ResourceManager.GetString("TSSE:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set subtitle.
+        /// </summary>
+        internal static string TSST_Name {
+            get {
+                return ResourceManager.GetString("TSST:Name", resourceCulture);
             }
         }
         
