@@ -19,18 +19,21 @@ namespace Mp3TagReader {
 		}
 		public string Mp3File { get; }
 
-		public Id3Header Header { get; }
-		public List<Id3Frame> Frames { get; } = [];
+		public ulong TagSize => Header.HeaderSize + Header.FramesSize;
 
 		public int PaddingSize { get; private set; }
 
+		public Id3Header Header { get; }
+
+		public List<Id3Frame> Frames { get; } = [];
+
 		private void ReadFrames( BinaryReader binaryReader ) {
-			var leftToRead = Header.Size;
+			var leftToRead = Header.FramesSize;
 
 			while ( leftToRead > 0 && Id3Frame.GetNextFrame( binaryReader ) is { } frame ) {
 				Frames.Add( frame );
 
-				leftToRead -= frame.FrameSize;
+				leftToRead -= frame.Size;
 			}
 
 			PaddingSize = (int)leftToRead;

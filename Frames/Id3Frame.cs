@@ -5,11 +5,11 @@ namespace Mp3TagReader.Frames {
 	// ID3v2 frame overview
 	// https://id3.org/id3v2.3.0#ID3v2_frame_overview
 	internal abstract class Id3Frame {
-		protected Id3Frame( string frameId, BinaryReader binaryReader ) {
-			FrameId = frameId;
+		protected Id3Frame( string id, BinaryReader binaryReader ) {
+			Id = id;
 
 			var frameName = GetResourceString( "Name" );
-			FrameIdDisplay = string.IsNullOrEmpty( frameName ) ? $"{FrameId}" : $"{FrameId} ({frameName})";
+			FrameIdDisplay = string.IsNullOrEmpty( frameName ) ? $"{Id}" : $"{Id} ({frameName})";
 
 			var frameSizeRaw = new byte[4];
 			var frameFlags = new byte[2];
@@ -17,9 +17,11 @@ namespace Mp3TagReader.Frames {
 			binaryReader.Read( frameSizeRaw, 0, frameSizeRaw.Length );
 			binaryReader.Read( frameFlags, 0, frameFlags.Length );
 
-			FrameSize = ( ulong )frameSizeRaw[0] << 24 | ( ulong )frameSizeRaw[1] << 16 | ( ulong )( frameSizeRaw[2] << 8 ) | frameSizeRaw[3];
+			FrameBodySize = ( ulong )frameSizeRaw[0] << 24 | ( ulong )frameSizeRaw[1] << 16 | ( ulong )( frameSizeRaw[2] << 8 ) | frameSizeRaw[3];
 
-			FrameBody = new byte[FrameSize];
+			Size = FrameBodySize + 10;
+
+			FrameBody = new byte[FrameBodySize];
 			binaryReader.Read( FrameBody, 0, FrameBody.Length );
 
 			// Frame header flags
@@ -35,14 +37,22 @@ namespace Mp3TagReader.Frames {
 		}
 
 		[JsonIgnore]
-		public string FrameId { get; }
+		public string Id { get; }
 
-		[JsonProperty( PropertyName = "FrameId" )]
+		[JsonProperty( PropertyName = "Id" )]
 		protected string FrameIdDisplay { get; set; }
 
 		protected byte[] FrameBody { get; set; }
 
-		public ulong FrameSize { get; }
+		/// <summary>
+		/// Frame body size (excluding header size)
+		/// </summary>
+		protected ulong FrameBodySize { get; set; }
+
+		/// <summary>
+		/// Total frame size, including header
+		/// </summary>
+		public ulong Size { get; }
 
 		public string Flags { get; private set; }
 
@@ -72,7 +82,7 @@ namespace Mp3TagReader.Frames {
 		}
 
 		protected string? GetResourceString( string partialKey ) {
-			var key = $"{FrameId}:{partialKey}";
+			var key = $"{Id}:{partialKey}";
 
 			return Properties.Resources.ResourceManager.GetString( key );
 		}

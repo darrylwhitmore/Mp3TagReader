@@ -1,12 +1,20 @@
 ﻿namespace Mp3TagReader {
 	// ID3v2 header
 	// https://id3.org/id3v2.3.0#ID3v2_header
+	//
+	// Hat tip to this very old question on StackOverflow for inspiration and
+	// a starting point:
+	//
+	// How to read Id3v2 tag
+	// https://stackoverflow.com/questions/16399604/how-to-read-id3v2-tag
 	internal class Id3Header {
 		public Id3Header( BinaryReader binaryReader) {
 			ReadHeader( binaryReader );
 		}
 
-		public ulong Size { get; private set; }
+		public ulong HeaderSize => 10;
+
+		public ulong FramesSize { get; private set; }
 
 		public string Version { get; private set; }
 
@@ -25,7 +33,7 @@
 
 			Version = $"ID3v2.{id3Version[0]}.{id3Version[1]}";
 
-			Size = ConvertRawSize( id3SizeRaw );
+			FramesSize = ConvertRawSize( id3SizeRaw );
 
 			var unsynchronisationFlag = ( id3Flags[0] & 0b1000000 ) != 0;
 			var extendedHeaderFlag = ( id3Flags[0]    & 0b0100000 ) != 0;

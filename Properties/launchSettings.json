@@ -19,6 +19,10 @@
     "Profile 4": {
       "commandName": "Project",
       "commandLineArgs": "-fs \"D:\\Junk\\mp3tagreadwrite\\05 Touch Me In The Morning AMPED.mp3\""
+    },
+    "Profile 5": {
+      "commandName": "Project",
+      "commandLineArgs": "-fs \"\\\\sequoia3\\music\\Rosanne Cash\\10 Song Demo\\01 Price Of Temptation.mp3\""
     }
   }
 }
