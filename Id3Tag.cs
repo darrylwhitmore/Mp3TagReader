@@ -21,11 +21,9 @@ namespace Mp3TagReader {
 
 		public ulong TagSize => Header.HeaderSize + Header.FramesSize;
 
-		public int PaddingSize { get; private set; }
-
 		public Id3Header Header { get; }
 
-		public List<Id3Frame> Frames { get; } = [];
+		public List<IFrame> Frames { get; } = [];
 
 		private void ReadFrames( BinaryReader binaryReader ) {
 			var leftToRead = Header.FramesSize;
@@ -36,7 +34,9 @@ namespace Mp3TagReader {
 				leftToRead -= frame.Size;
 			}
 
-			PaddingSize = (int)leftToRead;
+			if ( leftToRead > 0 ) {
+				Frames.Add( new PaddingPlaceholderFrame( leftToRead ) );
+			}
 		}
 	}
 }
