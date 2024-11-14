@@ -19,7 +19,7 @@ namespace Mp3TagReader {
 		}
 		public string Mp3File { get; }
 
-		public ulong TagSize => Header.HeaderSize + Header.FramesSize;
+		public int TagSize => Header.HeaderSize + Header.FramesSize;
 
 		public Id3Header Header { get; }
 

@@ -17,7 +17,7 @@ namespace Mp3TagReader.Frames {
 			binaryReader.Read( frameSizeRaw, 0, frameSizeRaw.Length );
 			binaryReader.Read( frameFlags, 0, frameFlags.Length );
 
-			FrameBodySize = ( ulong )frameSizeRaw[0] << 24 | ( ulong )frameSizeRaw[1] << 16 | ( ulong )( frameSizeRaw[2] << 8 ) | frameSizeRaw[3];
+			FrameBodySize = BitConverter.IsLittleEndian ? BitConverter.ToInt32( frameSizeRaw.Reverse().ToArray(), 0 ) : BitConverter.ToInt32( frameSizeRaw );
 
 			Size = FrameBodySize + 10;
 
@@ -47,12 +47,12 @@ namespace Mp3TagReader.Frames {
 		/// <summary>
 		/// Frame body size (excluding header size)
 		/// </summary>
-		protected ulong FrameBodySize { get; set; }
+		protected int FrameBodySize { get; set; }
 
 		/// <summary>
 		/// Total frame size, including header
 		/// </summary>
-		public ulong Size { get; }
+		public int Size { get; }
 
 		public string Flags { get; private set; }
 

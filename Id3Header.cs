@@ -1,4 +1,6 @@
-﻿namespace Mp3TagReader {
+﻿using System.Collections;
+
+namespace Mp3TagReader {
 	// ID3v2 header
 	// https://id3.org/id3v2.3.0#ID3v2_header
 	//
@@ -12,9 +14,9 @@
 			ReadHeader( binaryReader );
 		}
 
-		public ulong HeaderSize => 10;
+		public int HeaderSize => 10;
 
-		public ulong FramesSize { get; private set; }
+		public int FramesSize { get; private set; }
 
 		public string Version { get; private set; }
 
@@ -33,7 +35,7 @@
 
 			Version = $"ID3v2.{id3Version[0]}.{id3Version[1]}";
 
-			FramesSize = ConvertRawSize( id3SizeRaw );
+			FramesSize = DecodeFramesSize( id3SizeRaw );
 
 			var unsynchronisationFlag = ( id3Flags[0] & 0b1000000 ) != 0;
 			var extendedHeaderFlag = ( id3Flags[0]    & 0b0100000 ) != 0;
@@ -46,8 +48,36 @@
 				throw new NotImplementedException( "Extended headers are not currently implemented" );
 			}
 		}
-		private ulong ConvertRawSize( byte[] rawSize ) {
-			return ( ulong )rawSize[0] << 21 | ( ulong )rawSize[1] << 14 | ( ulong )rawSize[2] << 7 | rawSize[3];
+
+		private int DecodeFramesSize( byte[] bytes ) {
+			var bitArray = new BitArray( 32 );
+			var bitIndex = 4;
+
+			// The total frame size bytes in the MP3 file are in big endian format:
+			//
+			// ID3v2 header
+			// https://id3.org/id3v2.3.0#ID3v2_header
+			//
+			// In each byte, bit 7 will be unused. Conceptually, for each byte, we need to take 
+			// out bit 7, push bits 6 through 0 to the right to butt up against the next byte's
+			// bits, and then evaluate the value.
+			foreach ( var b in bytes ) {
+				// Populate a bit array to represent the decoded value. By setting
+				// the appropriate bit in the array, the bits are "moved" to their
+				// new destination. 
+				for ( var mask = 64; mask >= 1; mask /= 2 ) {
+					if ( ( b & mask ) == mask ) {
+						bitArray.Set( bitIndex ^ 7, true );
+					}
+
+					bitIndex++;
+				}
+			}
+
+			var newBytes = new byte[4];
+			bitArray.CopyTo( newBytes, 0 );
+
+			return BitConverter.IsLittleEndian ? BitConverter.ToInt32( newBytes.Reverse().ToArray(), 0 ) : BitConverter.ToInt32( newBytes, 0 );
 		}
 	}
 }

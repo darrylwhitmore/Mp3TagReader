@@ -3,5 +3,5 @@
 internal interface IFrame {
 	string Id { get; }
 
-	ulong Size { get; }
+	int Size { get; }
 }
