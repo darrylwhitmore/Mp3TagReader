@@ -7,15 +7,13 @@ namespace Mp3TagReader {
 		public Id3Tag( string mp3File ) {
 			Mp3File = mp3File;
 
-			var fs = File.Open( mp3File, FileMode.Open );
+			using var fs = File.Open( mp3File, FileMode.Open, FileAccess.Read, FileShare.Read );
 
 			using var br = new BinaryReader( fs );
 
 			Header = new Id3Header( br );
 
 			ReadFrames( br );
-
-			br.Close();
 		}
 		public string Mp3File { get; }
 
