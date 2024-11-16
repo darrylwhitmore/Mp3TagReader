@@ -19,6 +19,10 @@ namespace Mp3TagReader {
 				"The MP3 file(s) specification. Wildcards may be used.",
 				CommandOptionType.SingleValue );
 
+			var sortFramesOption = app.Option( "-sf|--sortFrames",
+				"If provided, frames will be sorted by Id; otherwise they will appear in physical order.",
+				CommandOptionType.NoValue );
+
 			var outputFolderOption = app.Option( "-of|--outputFolder <Folder>",
 				"Optional destination folder to write output JSON file(s). If omitted, the MP3 source folder will be used.",
 				CommandOptionType.SingleOrNoValue );
@@ -64,7 +68,7 @@ namespace Mp3TagReader {
 						}
 					}
 
-					return Process( mp3Files, outputFolder );
+					return Process( mp3Files, outputFolder, sortFramesOption.HasValue() );
 				}
 
 				Console.WriteLine( "One or more required arguments were not provided." );
@@ -82,10 +86,10 @@ namespace Mp3TagReader {
 			return AppReturnValueFail;
 		}
 
-		private static int Process( string[] mp3Files, string outputFolder ) {
+		private static int Process( string[] mp3Files, string outputFolder, bool sortFrames ) {
 			foreach ( var mp3File in mp3Files ) {
 				try {
-					var tag = new Id3Tag( mp3File );
+					var tag = new Id3Tag( mp3File, sortFrames );
 
 					var json = JsonConvert.SerializeObject( tag, Formatting.Indented );
 
