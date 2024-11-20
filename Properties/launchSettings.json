@@ -22,11 +22,11 @@
     },
     "Profile 5": {
       "commandName": "Project",
-      "commandLineArgs": "-fs \"\\\\sequoia3\\music\\Rosanne Cash\\10 Song Demo\\01 Price Of Temptation.mp3\""
+      "commandLineArgs": "-fs \"\\\\sequoia3\\music\\Rosanne Cash\\10 Song Demo\\01 Price Of Temptation.mp3\" -sf"
     },
     "Profile 6": {
       "commandName": "Project",
-      "commandLineArgs": "-fs D:\\Users\\Darryl\\Music\\Amped\\*.mp3 -of"
+      "commandLineArgs": "-fs D:\\Users\\Darryl\\Music\\Amped\\*.mp3 -of -sf"
     }
   }
 }

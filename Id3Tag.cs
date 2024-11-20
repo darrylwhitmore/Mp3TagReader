@@ -4,7 +4,7 @@ namespace Mp3TagReader {
 	// ID3 tag version 2.3.0
 	// https://id3.org/id3v2.3.0#ID3_tag_version_2.3.0
 	internal class Id3Tag {
-		public Id3Tag( string mp3File ) {
+		public Id3Tag( string mp3File, bool sortFrames = false ) {
 			Mp3File = mp3File;
 
 			using var fs = File.Open( mp3File, FileMode.Open, FileAccess.Read, FileShare.Read );
@@ -13,7 +13,7 @@ namespace Mp3TagReader {
 
 			Header = new Id3Header( br );
 
-			ReadFrames( br );
+			ReadFrames( br, sortFrames );
 		}
 		public string Mp3File { get; }
 
@@ -23,17 +23,25 @@ namespace Mp3TagReader {
 
 		public List<IFrame> Frames { get; } = [];
 
-		private void ReadFrames( BinaryReader binaryReader ) {
+		private void ReadFrames( BinaryReader binaryReader, bool sortFrames ) {
+			var workFrames = new List<IFrame>();
 			var leftToRead = Header.FramesSize;
 
 			while ( leftToRead > 0 && Id3Frame.GetNextFrame( binaryReader ) is { } frame ) {
-				Frames.Add( frame );
+				workFrames.Add( frame );
 
 				leftToRead -= frame.Size;
 			}
 
 			if ( leftToRead > 0 ) {
-				Frames.Add( new PaddingPlaceholderFrame( leftToRead ) );
+				workFrames.Add( new PaddingPlaceholderFrame( leftToRead ) );
+			}
+
+			if ( sortFrames ) {
+				Frames.AddRange( workFrames.OrderBy( f => f.Id ).ThenBy( f => f.Size ) );
+			}
+			else {
+				Frames.AddRange( workFrames );
 			}
 		}
 	}
