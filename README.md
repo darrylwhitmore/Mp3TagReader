@@ -14,13 +14,18 @@ Usage: Mp3TagReader [options]
 Options:
   -?|-h|--help                   Show help information.
   -fs|--fileSpec <FileSpec>      The MP3 file(s) specification. Wildcards may be used.
+  -sf|--sortFrames               If provided, frames will be sorted by Id; otherwise they will appear in physical order.
   -of|--outputFolder[:<Folder>]  Optional destination folder to write output JSON file(s). If omitted, the MP3 source
-                                 folder will be used.  
+                                 folder will be used.                                 
 ```
 ### Command Line Examples
 This command does not specify an output folder, so the JSON output is written to the console:
 ```
 > Mp3TagReader -fs "c:\Music\U2\War\01 Sunday Bloody Sunday.mp3"
+```
+This command does not specify an output folder, so the JSON output is written to the console with the frames in sorted order:
+```
+> Mp3TagReader -fs "c:\Music\U2\War\01 Sunday Bloody Sunday.mp3" -sf
 ```
 This command produces ***c:\Music\U2\War\01 Sunday Bloody Sunday.json***:
 ```
