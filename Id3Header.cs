@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Mp3TagReader.Frames;
 
 namespace Mp3TagReader {
 	// ID3v2 header
@@ -20,7 +21,7 @@ namespace Mp3TagReader {
 
 		public string Version { get; private set; }
 
-		public string Flags { get; private set; }
+		public List<string> Flags { get; } = [];
 
 		private void ReadHeader( BinaryReader binaryReader ) {
 			var id3Id = new byte[3];
@@ -40,13 +41,30 @@ namespace Mp3TagReader {
 			var unsynchronisationFlag = ( id3Flags[0] & 0b1000000 ) != 0;
 			var extendedHeaderFlag = ( id3Flags[0]    & 0b0100000 ) != 0;
 			var experimentalFlag = ( id3Flags[0]      & 0b0010000 ) != 0;
-			Flags = $"{( unsynchronisationFlag ? "U" : "u" )}{( extendedHeaderFlag ? "E" : "e" )}{( experimentalFlag ? "X" : "x" )}.....";
+
+			if ( unsynchronisationFlag ) {
+				AddFlag( "HeaderFlag:Unsynchronisation" );
+			}
+			
+			if ( extendedHeaderFlag ) {
+				AddFlag( "HeaderFlag:ExtendedHeader" );
+			}
+			
+			if ( experimentalFlag ) {
+				AddFlag( "HeaderFlag:Experimental" );
+			}
 
 			if ( extendedHeaderFlag ) {
 				// ID3v2 extended header
 				// https://id3.org/id3v2.3.0#ID3v2_extended_header
 				throw new NotImplementedException( "Extended headers are not currently implemented" );
 			}
+		}
+
+		private void AddFlag( string flagKey ) {
+			var flag = Properties.Resources.ResourceManager.GetString( flagKey );
+
+			Flags.Add( flag ?? $"Resource missing for key '{flagKey}'" );
 		}
 
 		private int DecodeFramesSize( byte[] bytes ) {

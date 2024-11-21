@@ -460,4 +460,13 @@
   <data name="TSST:Name" xml:space="preserve">
     <value>Set subtitle</value>
   </data>
+  <data name="HeaderFlag:Unsynchronisation" xml:space="preserve">
+    <value>Unsynchronisation</value>
+  </data>
+  <data name="HeaderFlag:ExtendedHeader" xml:space="preserve">
+    <value>Extended Header</value>
+  </data>
+  <data name="HeaderFlag:Experimental" xml:space="preserve">
+    <value>Experimental Indicator</value>
+  </data>
 </root>

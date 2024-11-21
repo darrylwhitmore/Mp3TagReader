@@ -349,6 +349,33 @@ namespace Mp3TagReader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Experimental Indicator.
+        /// </summary>
+        internal static string HeaderFlag_Experimental {
+            get {
+                return ResourceManager.GetString("HeaderFlag:Experimental", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extended Header.
+        /// </summary>
+        internal static string HeaderFlag_ExtendedHeader {
+            get {
+                return ResourceManager.GetString("HeaderFlag:ExtendedHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsynchronisation.
+        /// </summary>
+        internal static string HeaderFlag_Unsynchronisation {
+            get {
+                return ResourceManager.GetString("HeaderFlag:Unsynchronisation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Involved people list.
         /// </summary>
         internal static string IPLS_Name {
