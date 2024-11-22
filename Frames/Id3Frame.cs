@@ -33,7 +33,29 @@ namespace Mp3TagReader.Frames {
 			var encryptionFlag = ( frameFlags[1]            & 0b0100000 ) != 0;
 			var groupingIdentityFlag = ( frameFlags[1]      & 0b0010000 ) != 0;
 
-			Flags = $"{( tagAlterPreservationFlag ? "T" : "t" )}{( fileAlterPreservationFlag ? "F" : "f" )}{( readOnlyFlag ? "R" : "r" )}..... {( compressionFlag ? "C" : "c" )}{( encryptionFlag ? "E" : "e" )}{( groupingIdentityFlag ? "G" : "g" )}.....";
+			if ( tagAlterPreservationFlag ) {
+				AddFlag( "FrameFlag:TagAlterPreservation" );
+			}
+
+			if ( fileAlterPreservationFlag ) {
+				AddFlag( "FrameFlag:FileAlterPreservation" );
+			}
+
+			if ( readOnlyFlag ) {
+				AddFlag( "FrameFlag:ReadOnly" );
+			}
+
+			if ( compressionFlag ) {
+				AddFlag( "FrameFlag:Compression" );
+			}
+
+			if ( encryptionFlag ) {
+				AddFlag( "FrameFlag:Encryption" );
+			}
+
+			if ( groupingIdentityFlag ) {
+				AddFlag( "FrameFlag:GroupingIdentity" );
+			}
 		}
 
 		[JsonIgnore]
@@ -54,7 +76,13 @@ namespace Mp3TagReader.Frames {
 		/// </summary>
 		public int Size { get; }
 
-		public string Flags { get; private set; }
+		public List<string> Flags { get; } = [];
+
+		private void AddFlag( string flagKey ) {
+			var flag = Properties.Resources.ResourceManager.GetString( flagKey );
+
+			Flags.Add( flag ?? $"Resource missing for key '{flagKey}'" );
+		}
 
 		// ID3v2 frame overview
 		// https://id3.org/id3v2.4.0-structure
