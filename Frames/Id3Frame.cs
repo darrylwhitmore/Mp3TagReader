@@ -8,7 +8,7 @@ namespace Mp3TagReader.Frames {
 		protected Id3Frame( string id, BinaryReader binaryReader ) {
 			Id = id;
 
-			var frameName = GetResourceString( "Name" );
+			var frameName = GetResourceString( Id, "Name" );
 			FrameIdDisplay = string.IsNullOrEmpty( frameName ) ? $"{Id}" : $"{Id} ({frameName})";
 
 			var frameSizeRaw = new byte[4];
@@ -34,27 +34,27 @@ namespace Mp3TagReader.Frames {
 			var groupingIdentityFlag = ( frameFlags[1]      & 0b0010000 ) != 0;
 
 			if ( tagAlterPreservationFlag ) {
-				AddFlag( "FrameFlag:TagAlterPreservation" );
+				AddFlag( "TagAlterPreservation" );
 			}
 
 			if ( fileAlterPreservationFlag ) {
-				AddFlag( "FrameFlag:FileAlterPreservation" );
+				AddFlag( "FileAlterPreservation" );
 			}
 
 			if ( readOnlyFlag ) {
-				AddFlag( "FrameFlag:ReadOnly" );
+				AddFlag( "ReadOnly" );
 			}
 
 			if ( compressionFlag ) {
-				AddFlag( "FrameFlag:Compression" );
+				AddFlag( "Compression" );
 			}
 
 			if ( encryptionFlag ) {
-				AddFlag( "FrameFlag:Encryption" );
+				AddFlag( "Encryption" );
 			}
 
 			if ( groupingIdentityFlag ) {
-				AddFlag( "FrameFlag:GroupingIdentity" );
+				AddFlag( "GroupingIdentity" );
 			}
 		}
 
@@ -79,7 +79,7 @@ namespace Mp3TagReader.Frames {
 		public List<string> Flags { get; } = [];
 
 		private void AddFlag( string flagKey ) {
-			var flag = Properties.Resources.ResourceManager.GetString( flagKey );
+			var flag = GetResourceString( "FrameFlag", flagKey );
 
 			Flags.Add( flag ?? $"Resource missing for key '{flagKey}'" );
 		}
@@ -109,8 +109,8 @@ namespace Mp3TagReader.Frames {
 			}
 		}
 
-		protected string? GetResourceString( string partialKey ) {
-			var key = $"{Id}:{partialKey}";
+		protected string? GetResourceString( string baseKey, string subKey ) {
+			var key = $"{baseKey}:{subKey}";
 
 			return Properties.Resources.ResourceManager.GetString( key );
 		}
