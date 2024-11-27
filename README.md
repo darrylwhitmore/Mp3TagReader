@@ -13,7 +13,8 @@ Usage: Mp3TagReader [options]
 
 Options:
   -?|-h|--help                   Show help information.
-  -fs|--fileSpec <FileSpec>      The MP3 file(s) specification. Wildcards may be used.
+  -fs|--fileSpec <FileSpec>      The location of the MP3 file(s). Wildcards may be used. If a folder is provided, all
+                                 MP3 files in the folder will be selected.
   -sf|--sortFrames               If provided, frames will be sorted by Id; otherwise they will appear in physical order.
   -of|--outputFolder[:<Folder>]  Optional destination folder to write output JSON file(s). If omitted, the MP3 source
                                  folder will be used.                                 
