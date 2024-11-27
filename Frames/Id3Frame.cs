@@ -8,7 +8,7 @@ namespace Mp3TagReader.Frames {
 		protected Id3Frame( string id, BinaryReader binaryReader ) {
 			Id = id;
 
-			var frameName = GetResourceString( "Name" );
+			var frameName = GetResourceString( Id, "Name" );
 			FrameIdDisplay = string.IsNullOrEmpty( frameName ) ? $"{Id}" : $"{Id} ({frameName})";
 
 			var frameSizeRaw = new byte[4];
@@ -33,7 +33,29 @@ namespace Mp3TagReader.Frames {
 			var encryptionFlag = ( frameFlags[1]            & 0b0100000 ) != 0;
 			var groupingIdentityFlag = ( frameFlags[1]      & 0b0010000 ) != 0;
 
-			Flags = $"{( tagAlterPreservationFlag ? "T" : "t" )}{( fileAlterPreservationFlag ? "F" : "f" )}{( readOnlyFlag ? "R" : "r" )}..... {( compressionFlag ? "C" : "c" )}{( encryptionFlag ? "E" : "e" )}{( groupingIdentityFlag ? "G" : "g" )}.....";
+			if ( tagAlterPreservationFlag ) {
+				AddFlag( "TagAlterPreservation" );
+			}
+
+			if ( fileAlterPreservationFlag ) {
+				AddFlag( "FileAlterPreservation" );
+			}
+
+			if ( readOnlyFlag ) {
+				AddFlag( "ReadOnly" );
+			}
+
+			if ( compressionFlag ) {
+				AddFlag( "Compression" );
+			}
+
+			if ( encryptionFlag ) {
+				AddFlag( "Encryption" );
+			}
+
+			if ( groupingIdentityFlag ) {
+				AddFlag( "GroupingIdentity" );
+			}
 		}
 
 		[JsonIgnore]
@@ -54,7 +76,13 @@ namespace Mp3TagReader.Frames {
 		/// </summary>
 		public int Size { get; }
 
-		public string Flags { get; private set; }
+		public List<string> Flags { get; } = [];
+
+		private void AddFlag( string flagKey ) {
+			var flag = GetResourceString( "FrameFlag", flagKey );
+
+			Flags.Add( flag ?? $"Resource missing for key '{flagKey}'" );
+		}
 
 		// ID3v2 frame overview
 		// https://id3.org/id3v2.4.0-structure
@@ -81,8 +109,8 @@ namespace Mp3TagReader.Frames {
 			}
 		}
 
-		protected string? GetResourceString( string partialKey ) {
-			var key = $"{Id}:{partialKey}";
+		protected string? GetResourceString( string baseKey, string subKey ) {
+			var key = $"{baseKey}:{subKey}";
 
 			return Properties.Resources.ResourceManager.GetString( key );
 		}

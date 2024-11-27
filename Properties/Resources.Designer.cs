@@ -331,6 +331,60 @@ namespace Mp3TagReader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Compression.
+        /// </summary>
+        internal static string FrameFlag_Compression {
+            get {
+                return ResourceManager.GetString("FrameFlag:Compression", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encryption.
+        /// </summary>
+        internal static string FrameFlag_Encryption {
+            get {
+                return ResourceManager.GetString("FrameFlag:Encryption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Alter Preservation.
+        /// </summary>
+        internal static string FrameFlag_FileAlterPreservation {
+            get {
+                return ResourceManager.GetString("FrameFlag:FileAlterPreservation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grouping Identity.
+        /// </summary>
+        internal static string FrameFlag_GroupingIdentity {
+            get {
+                return ResourceManager.GetString("FrameFlag:GroupingIdentity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Read Only.
+        /// </summary>
+        internal static string FrameFlag_ReadOnly {
+            get {
+                return ResourceManager.GetString("FrameFlag:ReadOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tag Alter Preservation.
+        /// </summary>
+        internal static string FrameFlag_TagAlterPreservation {
+            get {
+                return ResourceManager.GetString("FrameFlag:TagAlterPreservation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to General encapsulated object.
         /// </summary>
         internal static string GEOB_Name {
@@ -345,6 +399,33 @@ namespace Mp3TagReader.Properties {
         internal static string GRID_Name {
             get {
                 return ResourceManager.GetString("GRID:Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Experimental Indicator.
+        /// </summary>
+        internal static string HeaderFlag_Experimental {
+            get {
+                return ResourceManager.GetString("HeaderFlag:Experimental", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extended Header.
+        /// </summary>
+        internal static string HeaderFlag_ExtendedHeader {
+            get {
+                return ResourceManager.GetString("HeaderFlag:ExtendedHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsynchronisation.
+        /// </summary>
+        internal static string HeaderFlag_Unsynchronisation {
+            get {
+                return ResourceManager.GetString("HeaderFlag:Unsynchronisation", resourceCulture);
             }
         }
         

@@ -460,4 +460,31 @@
   <data name="TSST:Name" xml:space="preserve">
     <value>Set subtitle</value>
   </data>
+  <data name="HeaderFlag:Unsynchronisation" xml:space="preserve">
+    <value>Unsynchronisation</value>
+  </data>
+  <data name="HeaderFlag:ExtendedHeader" xml:space="preserve">
+    <value>Extended Header</value>
+  </data>
+  <data name="HeaderFlag:Experimental" xml:space="preserve">
+    <value>Experimental Indicator</value>
+  </data>
+  <data name="FrameFlag:TagAlterPreservation" xml:space="preserve">
+    <value>Tag Alter Preservation</value>
+  </data>
+  <data name="FrameFlag:FileAlterPreservation" xml:space="preserve">
+    <value>File Alter Preservation</value>
+  </data>
+  <data name="FrameFlag:ReadOnly" xml:space="preserve">
+    <value>Read Only</value>
+  </data>
+  <data name="FrameFlag:Compression" xml:space="preserve">
+    <value>Compression</value>
+  </data>
+  <data name="FrameFlag:Encryption" xml:space="preserve">
+    <value>Encryption</value>
+  </data>
+  <data name="FrameFlag:GroupingIdentity" xml:space="preserve">
+    <value>Grouping Identity</value>
+  </data>
 </root>
