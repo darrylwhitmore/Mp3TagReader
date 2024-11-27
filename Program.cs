@@ -16,7 +16,7 @@ namespace Mp3TagReader {
 			app.HelpOption( "-?|-h|--help" );
 
 			var fileSpecOption = app.Option( "-fs|--fileSpec <FileSpec>",
-				"The MP3 file(s) specification. Wildcards may be used.",
+				"The location of the MP3 file(s). Wildcards may be used. If a folder is provided, all MP3 files in the folder will be selected.",
 				CommandOptionType.SingleValue );
 
 			var sortFramesOption = app.Option( "-sf|--sortFrames",
@@ -31,19 +31,28 @@ namespace Mp3TagReader {
 				if ( fileSpecOption.HasValue() ) {
 					var fileSpecValue = fileSpecOption.Value() ?? string.Empty;
 
-					var mp3Directory = Path.GetDirectoryName( fileSpecValue );
+					string? mp3Directory;
+					string[] mp3Files;
 
-					if ( !Directory.Exists( mp3Directory ) ) {
-						Console.WriteLine( $"MP3 directory does not exist: '{mp3Directory}'" );
-						return AppReturnValueFail;
+					if ( Directory.Exists( fileSpecValue ) ) {
+						mp3Directory = fileSpecValue;
+						mp3Files = Directory.GetFiles( fileSpecValue, "*.mp3" );
+					}
+					else {
+						mp3Directory = Path.GetDirectoryName( fileSpecValue );
+
+						if ( !Directory.Exists( mp3Directory ) ) {
+							Console.WriteLine( $"MP3 directory does not exist: '{mp3Directory}'" );
+							return AppReturnValueFail;
+						}
+
+						var searchPattern = Path.GetFileName( fileSpecValue );
+
+						mp3Files = Directory.GetFiles( mp3Directory, searchPattern );
 					}
 
-					var searchPattern = Path.GetFileName( fileSpecValue );
-
-					var mp3Files = Directory.GetFiles( mp3Directory, searchPattern );
-
 					if ( !mp3Files.Any() ) {
-						Console.WriteLine( "No MP3 files were found." );
+						Console.WriteLine( $"No MP3 files were found in '{mp3Directory}'." );
 						return AppReturnValueFail;
 					}
 

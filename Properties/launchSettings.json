@@ -27,6 +27,14 @@
     "Profile 6": {
       "commandName": "Project",
       "commandLineArgs": "-fs D:\\Users\\Darryl\\Music\\Amped\\*.mp3 -of -sf"
+    },
+    "Profile 7": {
+      "commandName": "Project",
+      "commandLineArgs": "-fs D:\\Users\\Darryl\\Music\\Amped\\ -of -sf"
+    },
+    "Profile 8": {
+      "commandName": "Project",
+      "commandLineArgs": "-h"
     }
   }
 }
