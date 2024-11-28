@@ -4,7 +4,7 @@ namespace Mp3TagReader.Frames {
 	// User defined text information
 	// https://id3.org/id3v2.3.0#User_defined_text_information_frame
 	internal sealed class Id3UserDefinedTextInformationFrame : Id3Frame {
-		public Id3UserDefinedTextInformationFrame( string id, BinaryReader binaryReader ) : base( id, binaryReader ) {
+		public Id3UserDefinedTextInformationFrame( string id, BinaryReader binaryReader, IResourceManager resourceManager ) : base( id, binaryReader, resourceManager ) {
 			ProcessFrameBody();
 		}
 

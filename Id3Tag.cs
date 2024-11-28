@@ -4,14 +4,17 @@ namespace Mp3TagReader {
 	// ID3 tag version 2.3.0
 	// https://id3.org/id3v2.3.0#ID3_tag_version_2.3.0
 	internal class Id3Tag {
-		public Id3Tag( string mp3File, bool sortFrames = false ) {
+		private readonly IResourceManager resourceManager;
+
+		public Id3Tag( string mp3File, IResourceManager resourceManager, bool sortFrames = false ) {
 			Mp3File = mp3File;
+			this.resourceManager = resourceManager;
 
 			using var fs = File.Open( mp3File, FileMode.Open, FileAccess.Read, FileShare.Read );
 
 			using var br = new BinaryReader( fs );
 
-			Header = new Id3Header( br );
+			Header = new Id3Header( br, resourceManager );
 
 			ReadFrames( br, sortFrames );
 		}
@@ -27,7 +30,7 @@ namespace Mp3TagReader {
 			var workFrames = new List<IFrame>();
 			var leftToRead = Header.FramesSize;
 
-			while ( leftToRead > 0 && Id3Frame.GetNextFrame( binaryReader ) is { } frame ) {
+			while ( leftToRead > 0 && Id3Frame.GetNextFrame( binaryReader, resourceManager ) is { } frame ) {
 				workFrames.Add( frame );
 
 				leftToRead -= frame.Size;

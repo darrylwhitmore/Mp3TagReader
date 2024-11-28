@@ -96,9 +96,11 @@ namespace Mp3TagReader {
 		}
 
 		private static int Process( string[] mp3Files, string outputFolder, bool sortFrames ) {
+			var resourceManager = new ResourceManager();
+			
 			foreach ( var mp3File in mp3Files ) {
 				try {
-					var tag = new Id3Tag( mp3File, sortFrames );
+					var tag = new Id3Tag( mp3File, resourceManager, sortFrames );
 
 					var json = JsonConvert.SerializeObject( tag, Formatting.Indented );
 

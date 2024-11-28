@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Mp3TagReader.Frames;
 
 namespace Mp3TagReader {
 	// ID3v2 header
@@ -11,7 +10,10 @@ namespace Mp3TagReader {
 	// How to read Id3v2 tag
 	// https://stackoverflow.com/questions/16399604/how-to-read-id3v2-tag
 	internal class Id3Header {
-		public Id3Header( BinaryReader binaryReader) {
+		private readonly IResourceManager resourceManager;
+
+		public Id3Header( BinaryReader binaryReader, IResourceManager resourceManager ) {
+			this.resourceManager = resourceManager;
 			ReadHeader( binaryReader );
 		}
 
@@ -43,15 +45,15 @@ namespace Mp3TagReader {
 			var experimentalFlag = ( id3Flags[0]      & 0b0010000 ) != 0;
 
 			if ( unsynchronisationFlag ) {
-				AddFlag( "HeaderFlag:Unsynchronisation" );
+				AddFlag( "Unsynchronisation" );
 			}
 			
 			if ( extendedHeaderFlag ) {
-				AddFlag( "HeaderFlag:ExtendedHeader" );
+				AddFlag( "ExtendedHeader" );
 			}
 			
 			if ( experimentalFlag ) {
-				AddFlag( "HeaderFlag:Experimental" );
+				AddFlag( "Experimental" );
 			}
 
 			if ( extendedHeaderFlag ) {
@@ -62,9 +64,7 @@ namespace Mp3TagReader {
 		}
 
 		private void AddFlag( string flagKey ) {
-			var flag = Properties.Resources.ResourceManager.GetString( flagKey );
-
-			Flags.Add( flag ?? $"Resource missing for key '{flagKey}'" );
+			Flags.Add( resourceManager.GetString( "HeaderFlag", flagKey ) ?? flagKey );
 		}
 
 		private int DecodeFramesSize( byte[] bytes ) {

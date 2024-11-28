@@ -5,10 +5,11 @@ namespace Mp3TagReader.Frames {
 	// ID3v2 frame overview
 	// https://id3.org/id3v2.3.0#ID3v2_frame_overview
 	internal abstract class Id3Frame : IFrame {
-		protected Id3Frame( string id, BinaryReader binaryReader ) {
+		protected Id3Frame( string id, BinaryReader binaryReader, IResourceManager resourceManager ) {
 			Id = id;
+			ResourceManager = resourceManager;
 
-			var frameName = GetResourceString( Id, "Name" );
+			var frameName = ResourceManager.GetString( Id, "Name" );
 			FrameIdDisplay = string.IsNullOrEmpty( frameName ) ? $"{Id}" : $"{Id} ({frameName})";
 
 			var frameSizeRaw = new byte[4];
@@ -61,6 +62,8 @@ namespace Mp3TagReader.Frames {
 		[JsonIgnore]
 		public string Id { get; }
 
+		protected IResourceManager ResourceManager { get; }
+
 		[JsonProperty( PropertyName = "Id" )]
 		protected string FrameIdDisplay { get; set; }
 
@@ -79,9 +82,7 @@ namespace Mp3TagReader.Frames {
 		public List<string> Flags { get; } = [];
 
 		private void AddFlag( string flagKey ) {
-			var flag = GetResourceString( "FrameFlag", flagKey );
-
-			Flags.Add( flag ?? $"Resource missing for key '{flagKey}'" );
+			Flags.Add( ResourceManager.GetString( "FrameFlag", flagKey ) ?? flagKey );
 		}
 
 		// ID3v2 frame overview
@@ -109,15 +110,9 @@ namespace Mp3TagReader.Frames {
 			}
 		}
 
-		protected string? GetResourceString( string baseKey, string subKey ) {
-			var key = $"{baseKey}:{subKey}";
-
-			return Properties.Resources.ResourceManager.GetString( key );
-		}
-
 		protected abstract void ProcessFrameBody();
 
-		public static Id3Frame? GetNextFrame( BinaryReader binaryReader ) {
+		public static Id3Frame? GetNextFrame( BinaryReader binaryReader, IResourceManager resourceManager ) {
 			var frameIdRaw = new byte[4];
 
 			binaryReader.Read( frameIdRaw, 0, frameIdRaw.Length );
@@ -133,31 +128,31 @@ namespace Mp3TagReader.Frames {
 			// https://id3.org/id3v2.3.0#Declared_ID3v2_frames
 
 			if ( frameId == "TXXX" ) {
-				return new Id3UserDefinedTextInformationFrame( frameId, binaryReader );
+				return new Id3UserDefinedTextInformationFrame( frameId, binaryReader, resourceManager );
 			}
 
 			if ( frameId.StartsWith( "T" ) ) {
-				return new Id3TextInformationFrame( frameId, binaryReader );
+				return new Id3TextInformationFrame( frameId, binaryReader, resourceManager );
 			}
 
 			switch ( frameId ) {
 				case "APIC":
-					return new Id3AttachedPictureFrame( frameId, binaryReader );
+					return new Id3AttachedPictureFrame( frameId, binaryReader, resourceManager );
 
 				case "COMM":
-					return new Id3CommentFrame( frameId, binaryReader );
+					return new Id3CommentFrame( frameId, binaryReader, resourceManager );
 
 				case "MCDI":
-					return new Id3MusicCdIdentifierFrame( frameId, binaryReader );
+					return new Id3MusicCdIdentifierFrame( frameId, binaryReader, resourceManager );
 
 				case "PRIV":
-					return new Id3PrivateFrame( frameId, binaryReader );
+					return new Id3PrivateFrame( frameId, binaryReader, resourceManager );
 
 				case "WXXX":
-					return new Id3UserDefinedUrlLinkFrame( frameId, binaryReader );
+					return new Id3UserDefinedUrlLinkFrame( frameId, binaryReader, resourceManager );
 
 				default:
-					return new Id3UnimplementedFrame( frameId, binaryReader );
+					return new Id3UnimplementedFrame( frameId, binaryReader, resourceManager );
 			}
 		}
 	}

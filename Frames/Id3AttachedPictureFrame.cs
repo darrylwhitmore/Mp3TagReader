@@ -4,7 +4,7 @@ namespace Mp3TagReader.Frames {
 	// Attached picture
 	// https://id3.org/id3v2.3.0#Attached_picture
 	internal sealed class Id3AttachedPictureFrame : Id3Frame {
-		public Id3AttachedPictureFrame( string id, BinaryReader binaryReader ) : base( id, binaryReader ) {
+		public Id3AttachedPictureFrame( string id, BinaryReader binaryReader, IResourceManager resourceManager ) : base( id, binaryReader, resourceManager ) {
 			ProcessFrameBody();
 		}
 
@@ -28,7 +28,7 @@ namespace Mp3TagReader.Frames {
 			MimeType = stringReader.ReadString();
 
 			var pictureType = FrameBody[stringReader.CurrentIndex];
-			var pictureTypeDesc = GetResourceString( Id, $"{pictureType:X2}" );
+			var pictureTypeDesc = ResourceManager.GetString( Id, $"{pictureType:X2}" );
 			PictureType = string.IsNullOrEmpty( pictureTypeDesc ) ? $"0x{pictureType:X2}" : $"0x{pictureType:X2} ({pictureTypeDesc})";
 
 			stringReader = new StringReader( FrameBody, stringReader.CurrentIndex + 1, FrameBody.Length - 1, encoding );
