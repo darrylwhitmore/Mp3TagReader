@@ -10,7 +10,7 @@ namespace Mp3TagReader {
 
 			var app = new CommandLineApplication {
 				Name = "Mp3TagReader",
-				Description = "Read all ID3 tags in an MP3 file."
+				Description = "Read all metadata tags in an MP3 file."
 			};
 
 			app.HelpOption( "-?|-h|--help" );
@@ -19,8 +19,8 @@ namespace Mp3TagReader {
 				"The location of the MP3 file(s). Wildcards may be used. If a folder is provided, all MP3 files in the folder will be selected.",
 				CommandOptionType.SingleValue );
 
-			var sortFramesOption = app.Option( "-sf|--sortFrames",
-				"If provided, frames will be sorted by Id; otherwise they will appear in physical order.",
+			var sortId3V2FramesOption = app.Option( "-sf|--sortFrames",
+				"If provided, Id3v2 frames will be sorted by Id; otherwise they will appear in physical order.",
 				CommandOptionType.NoValue );
 
 			var outputFolderOption = app.Option( "-of|--outputFolder <Folder>",
@@ -77,7 +77,7 @@ namespace Mp3TagReader {
 						}
 					}
 
-					return Process( mp3Files, outputFolder, sortFramesOption.HasValue() );
+					return Process( mp3Files, outputFolder, sortId3V2FramesOption.HasValue() );
 				}
 
 				Console.WriteLine( "One or more required arguments were not provided." );
@@ -95,14 +95,16 @@ namespace Mp3TagReader {
 			return AppReturnValueFail;
 		}
 
-		private static int Process( string[] mp3Files, string outputFolder, bool sortFrames ) {
+		private static int Process( string[] mp3Files, string outputFolder, bool sortId3V2Frames ) {
 			var resourceManager = new ResourceManager();
 			
 			foreach ( var mp3File in mp3Files ) {
 				try {
-					var tag = new Id3Tag( mp3File, resourceManager, sortFrames );
+					var tagInfo = new Mp3TagInfo( mp3File, resourceManager, sortId3V2Frames );
 
-					var json = JsonConvert.SerializeObject( tag, Formatting.Indented );
+					tagInfo.LoadTags();
+
+					var json = JsonConvert.SerializeObject( tagInfo, Formatting.Indented );
 
 					if ( string.IsNullOrEmpty( outputFolder ) ) {
 						Console.WriteLine( json );
