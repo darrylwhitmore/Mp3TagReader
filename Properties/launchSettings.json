@@ -35,6 +35,14 @@
     "Profile 8": {
       "commandName": "Project",
       "commandLineArgs": "-h"
+    },
+    "Profile 9": {
+      "commandName": "Project",
+      "commandLineArgs": "-fs \"D:\\Users\\Darryl\\Music\\Van Morrison\\What's It Gonna Take-\\15 Pretending.mp3\" "
+    },
+    "Profile 10": {
+      "commandName": "Project",
+      "commandLineArgs": "-fs \"D:\\Junk\\mp3tagreadwrite\\01 Do It Again.mp3\""
     }
   }
 }
