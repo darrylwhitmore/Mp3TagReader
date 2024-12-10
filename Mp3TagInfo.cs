@@ -24,6 +24,12 @@
 			if ( id3V1Tag.ReadTag( Mp3File ) ) {
 				Tags.Add( id3V1Tag );
 			}
+
+			// APEv2
+			var apeV2Tag = new ApeV2Tag( resourceManager );
+			if ( apeV2Tag.ReadTag( Mp3File ) ) {
+				Tags.Add( apeV2Tag );
+			}
 		}
 	}
 }
