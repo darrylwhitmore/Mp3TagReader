@@ -64,18 +64,15 @@ namespace Mp3TagReader {
 				// APE Tags Footer
 				// https://wiki.hydrogenaud.io/index.php?title=APE_Tags_Header
 
-				// Ape numbers are stored in little endian
+				Version = ReadApeNumber( footerData, 8 ) / 1000M;
 
-				var tagVersion = BitConverter.IsLittleEndian ? BitConverter.ToInt32( footerData, 8 ) : BitConverter.ToInt32( footerData.Skip( 8 ).Take( 4 ).Reverse().ToArray(), 0 );
-				Version = tagVersion / 1000M;
+				var tagSize = ReadApeNumber( footerData, 12 );
 
-				var tagSize = BitConverter.IsLittleEndian ? BitConverter.ToInt32( footerData, 12 ) : BitConverter.ToInt32( footerData.Skip( 12 ).Take( 4 ).Reverse().ToArray(), 0 );
-
-				ItemCount = BitConverter.IsLittleEndian ? BitConverter.ToInt32( footerData, 16 ) : BitConverter.ToInt32( footerData.Skip( 16 ).Take( 4 ).Reverse().ToArray(), 0 );
+				ItemCount = ReadApeNumber( footerData, 16 );
 
 				// Ape Tags Flags
 				// https://wiki.hydrogenaud.io/index.php?title=Ape_Tags_Flags
-				var footerFlags = BitConverter.IsLittleEndian ? BitConverter.ToUInt32( footerData, 20 ) : BitConverter.ToUInt32( footerData.Skip( 20 ).Take( 4 ).Reverse().ToArray(), 0 );
+				var footerFlags = ReadApeNumber( footerData, 20 );
 				var hasHeader = ( footerFlags & ( 1 << 31 ) ) != 0;
 				var hasFooter = ( footerFlags & ( 1 << 30 ) ) != 0;
 				var isHeader = ( footerFlags & ( 1 << 29 ) ) != 0;
@@ -94,14 +91,12 @@ namespace Mp3TagReader {
 				// APE Tag Item
 				// https://wiki.hydrogenaud.io/index.php?title=APE_Tag_Item
 				for ( var i = 0; i < ItemCount; i++ ) {
-					// Ape numbers are stored in little endian
-					
-					var itemLength = BitConverter.IsLittleEndian ? BitConverter.ToInt32( itemData, currentIndex ) : BitConverter.ToInt32( itemData.Skip( currentIndex ).Take( 4 ).Reverse().ToArray(), 0 );
+					var itemLength = ReadApeNumber( itemData, currentIndex );
 					currentIndex += 4;
 
 					// Ape Tags Flags
 					// https://wiki.hydrogenaud.io/index.php?title=Ape_Tags_Flags
-					var itemFlags = BitConverter.IsLittleEndian ? BitConverter.ToUInt32( itemData, currentIndex ) : BitConverter.ToUInt32( itemData.Skip( currentIndex ).Take( 4 ).Reverse().ToArray(), 0 );
+					var itemFlags = ReadApeNumber( itemData, currentIndex );
 					var valueIsBinary = ( itemFlags & ( 1 << 1 ) ) != 0;
 					currentIndex += 4;
 
@@ -129,6 +124,11 @@ namespace Mp3TagReader {
 			}
 
 			return tagFound;
+		}
+
+		private static int ReadApeNumber( byte[] data, int index ) {
+			// Ape numbers are stored in little endian
+			return BitConverter.IsLittleEndian ? BitConverter.ToInt32( data, index ) : BitConverter.ToInt32( data.Skip( index ).Take( 4 ).Reverse().ToArray(), 0 );
 		}
 	}
 }
