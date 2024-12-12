@@ -4,6 +4,8 @@ namespace Mp3TagReader {
 	// APEv2 specification
 	// https://wiki.hydrogenaud.io/index.php?title=APEv2_specification
 	internal class ApeV2Tag : ITag {
+		private const string ApePreamble = "APETAGEX";
+		private const int FooterSize = 32;
 
 		private readonly IResourceManager resourceManager;
 
@@ -28,62 +30,47 @@ namespace Mp3TagReader {
 
 			using var br = new BinaryReader( fs );
 
-			// APE Tags Footer
-			// https://wiki.hydrogenaud.io/index.php?title=APE_Tags_Header
-			// 
-			// Look for the 32 byte Ape footer at the end of the file (if no ID3V1 tag).
-			br.BaseStream.Seek( -32, SeekOrigin.End );
+			var footerData = new byte[FooterSize];
+			var tagSize = 0;
 
-			var footerData = new byte[32];
-
-			br.Read( footerData, 0, footerData.Length );
-
-			var preambleReader = new StringReader( footerData, 0, 7, Encoding.Latin1 );
-			var preamble = preambleReader.ReadString();
-
-			const string apePreamble = "APETAGEX";
-			
-			if ( preamble == apePreamble ) {
-				tagFound = true;
-			}
-			else {
-				// Look for the 32 byte Ape footer ahead of a possibly-present ID3V1 tag, which is 128 bytes.
-				br.BaseStream.Seek( -(128 + 32), SeekOrigin.End );
-
+			// Look for the 32 byte Ape footer:
+			// - First, at the end of the file (when no ID3V1 tag is present)
+			// - Next, ahead of a possibly-present 128 byte ID3V1 tag (located at the end of the file)
+			foreach ( var offset in new[] { 0, -128 } ) {
+				br.BaseStream.Seek( offset - footerData.Length, SeekOrigin.End );
 				br.Read( footerData, 0, footerData.Length );
 
-				preambleReader = new StringReader( footerData, 0, 7, Encoding.Latin1 );
-				preamble = preambleReader.ReadString();
+				var preambleReader = new StringReader( footerData, 0, 7, Encoding.Latin1 );
+				var preamble = preambleReader.ReadString();
 
-				if ( preamble == apePreamble ) {
+				if ( preamble == ApePreamble ) {
+					// APE Tag Footer
+					// https://wiki.hydrogenaud.io/index.php?title=APE_Tags_Header
+
+					Version = ReadApeNumber( footerData, 8 ) / 1000M;
+
+					tagSize = ReadApeNumber( footerData, 12 );
+
+					ItemCount = ReadApeNumber( footerData, 16 );
+
+					// Ape Tag Flags
+					// https://wiki.hydrogenaud.io/index.php?title=Ape_Tags_Flags
+					var footerFlags = ReadApeNumber( footerData, 20 );
+					var hasHeader = ( footerFlags & ( 1 << 31 ) ) != 0;
+					var hasFooter = ( footerFlags & ( 1 << 30 ) ) != 0;
+					var isHeader = ( footerFlags & ( 1 << 29 ) ) != 0;
+					
 					tagFound = true;
+					break;
 				}
 			}
-			
-			if ( tagFound ) {
-				// APE Tags Footer
-				// https://wiki.hydrogenaud.io/index.php?title=APE_Tags_Header
 
-				Version = ReadApeNumber( footerData, 8 ) / 1000M;
-
-				var tagSize = ReadApeNumber( footerData, 12 );
-
-				ItemCount = ReadApeNumber( footerData, 16 );
-
-				// Ape Tags Flags
-				// https://wiki.hydrogenaud.io/index.php?title=Ape_Tags_Flags
-				var footerFlags = ReadApeNumber( footerData, 20 );
-				var hasHeader = ( footerFlags & ( 1 << 31 ) ) != 0;
-				var hasFooter = ( footerFlags & ( 1 << 30 ) ) != 0;
-				var isHeader = ( footerFlags & ( 1 << 29 ) ) != 0;
-
-				// Read items above the footer and bordered by the header. The tag size excludes the header but includes the footer.
+			if ( tagFound && ItemCount > 0 ) {
+				// Read items above the footer and below the header. The tag size excludes the header but includes the footer.
 				// We are now at the end of the footer, so seeking back the tag size will position us on the first item.
 				br.BaseStream.Seek( -tagSize, SeekOrigin.Current );
 
-				// TODO: check if there are 0 items and bail
-
-				var itemData = new byte[tagSize - 32];
+				var itemData = new byte[tagSize - FooterSize];
 				br.Read( itemData, 0, itemData.Length );
 
 				var currentIndex = 0;
@@ -94,7 +81,7 @@ namespace Mp3TagReader {
 					var itemLength = ReadApeNumber( itemData, currentIndex );
 					currentIndex += 4;
 
-					// Ape Tags Flags
+					// Ape Item Flags
 					// https://wiki.hydrogenaud.io/index.php?title=Ape_Tags_Flags
 					var itemFlags = ReadApeNumber( itemData, currentIndex );
 					var valueIsBinary = ( itemFlags & ( 1 << 1 ) ) != 0;
