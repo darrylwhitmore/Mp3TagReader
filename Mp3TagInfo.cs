@@ -17,7 +17,10 @@
 		
 		public void LoadTags() {
 			// Id3v2
-			Tags.Add( new Id3V2Tag( Mp3File, resourceManager, sortId3V2Frames ) );
+			var id3V2Tag = new Id3V2Tag( resourceManager );
+			if ( id3V2Tag.ReadTag( Mp3File, sortId3V2Frames ) ) {
+				Tags.Add( id3V2Tag );
+			}
 
 			// Id3v1
 			var id3V1Tag = new Id3V1Tag( resourceManager );

@@ -18,8 +18,8 @@ namespace Mp3TagReader.Frames {
 			binaryReader.Read( frameSizeRaw, 0, frameSizeRaw.Length );
 			binaryReader.Read( frameFlags, 0, frameFlags.Length );
 
-			// TODO: ID3 numbers are stored in big endian; negate test & switch parameters
-			FrameBodySize = BitConverter.IsLittleEndian ? BitConverter.ToInt32( frameSizeRaw.Reverse().ToArray(), 0 ) : BitConverter.ToInt32( frameSizeRaw );
+			// ID3 numbers are stored in big endian
+			FrameBodySize = !BitConverter.IsLittleEndian ? BitConverter.ToInt32( frameSizeRaw ) : BitConverter.ToInt32( frameSizeRaw.Reverse().ToArray(), 0 );
 
 			Size = FrameBodySize + 10;
 

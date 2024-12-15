@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Text;
 
 namespace Mp3TagReader {
 	// ID3v2 header
@@ -10,11 +11,12 @@ namespace Mp3TagReader {
 	// How to read Id3v2 tag
 	// https://stackoverflow.com/questions/16399604/how-to-read-id3v2-tag
 	internal class Id3Header {
+		private readonly BinaryReader br;
 		private readonly IResourceManager resourceManager;
 
-		public Id3Header( BinaryReader binaryReader, IResourceManager resourceManager ) {
+		public Id3Header( BinaryReader br, IResourceManager resourceManager ) {
+			this.br = br;
 			this.resourceManager = resourceManager;
-			ReadHeader( binaryReader );
 		}
 
 		public int HeaderSize => 10;
@@ -25,17 +27,24 @@ namespace Mp3TagReader {
 
 		public List<string> Flags { get; } = [];
 
-		private void ReadHeader( BinaryReader binaryReader ) {
+		public bool ReadHeader() {
 			var id3Id = new byte[3];
 			var id3Version = new byte[2];
 			var id3Flags = new byte[1];
 			var id3SizeRaw = new byte[4];
 
-			binaryReader.Read( id3Id, 0, id3Id.Length );
-			// TODO: there is no check to verify that Id is "ID3", just assumed. Need to bail out if not ID3.
-			binaryReader.Read( id3Version, 0, id3Version.Length );
-			binaryReader.Read( id3Flags, 0, id3Flags.Length );
-			binaryReader.Read( id3SizeRaw, 0, id3SizeRaw.Length );
+			br.Read( id3Id, 0, id3Id.Length );
+			
+			var markerReader = new StringReader( id3Id, 0, 2, Encoding.Latin1 );
+			var marker = markerReader.ReadString();
+			
+			if ( marker != "ID3" ) {
+				return false;
+			}
+
+			br.Read( id3Version, 0, id3Version.Length );
+			br.Read( id3Flags, 0, id3Flags.Length );
+			br.Read( id3SizeRaw, 0, id3SizeRaw.Length );
 
 			Version = $"ID3v2.{id3Version[0]}.{id3Version[1]}";
 
@@ -62,6 +71,8 @@ namespace Mp3TagReader {
 				// https://id3.org/id3v2.3.0#ID3v2_extended_header
 				throw new NotImplementedException( "Extended headers are not currently implemented" );
 			}
+
+			return true;
 		}
 
 		private void AddFlag( string flagKey ) {
@@ -96,8 +107,8 @@ namespace Mp3TagReader {
 			var newBytes = new byte[4];
 			bitArray.CopyTo( newBytes, 0 );
 
-			// TODO: ID3 numbers are stored in big endian; negate test & switch parameters
-			return BitConverter.IsLittleEndian ? BitConverter.ToInt32( newBytes.Reverse().ToArray(), 0 ) : BitConverter.ToInt32( newBytes, 0 );
+			// ID3 numbers are stored in big endian
+			return !BitConverter.IsLittleEndian ? BitConverter.ToInt32( newBytes, 0 ) : BitConverter.ToInt32( newBytes.Reverse().ToArray(), 0 );
 		}
 	}
 }

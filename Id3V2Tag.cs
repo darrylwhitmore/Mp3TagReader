@@ -6,22 +6,15 @@ namespace Mp3TagReader {
 	internal class Id3V2Tag : ITag {
 		private readonly IResourceManager resourceManager;
 
-		public Id3V2Tag( string mp3File, IResourceManager resourceManager, bool sortFrames ) {
+		public Id3V2Tag( IResourceManager resourceManager ) {
 			this.resourceManager = resourceManager;
-
-			using var fs = File.Open( mp3File, FileMode.Open, FileAccess.Read, FileShare.Read );
-
-			using var br = new BinaryReader( fs );
-
-			Header = new Id3Header( br, resourceManager );
-
-			ReadFrames( br, sortFrames );
 		}
-		public string Type => "Id3v2";
 
+		public string Type => "Id3v2";
+		
 		public int TagSize => Header.HeaderSize + Header.FramesSize;
 
-		public Id3Header Header { get; }
+		public Id3Header Header { get; set; }
 
 		public List<IFrame> Frames { get; } = [];
 
@@ -45,6 +38,24 @@ namespace Mp3TagReader {
 			else {
 				Frames.AddRange( workFrames );
 			}
+		}
+
+		public bool ReadTag( string mp3File, bool sortFrames ) {
+			using var fs = File.Open( mp3File, FileMode.Open, FileAccess.Read, FileShare.Read );
+
+			using var br = new BinaryReader( fs );
+
+			var header = new Id3Header( br, resourceManager );
+
+			if ( !header.ReadHeader() ) {
+				return false;
+			}
+
+			Header = header;
+				
+			ReadFrames( br, sortFrames );
+				
+			return true;
 		}
 	}
 }
