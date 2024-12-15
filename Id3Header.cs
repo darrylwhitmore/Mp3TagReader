@@ -32,6 +32,7 @@ namespace Mp3TagReader {
 			var id3SizeRaw = new byte[4];
 
 			binaryReader.Read( id3Id, 0, id3Id.Length );
+			// TODO: there is no check to verify that Id is "ID3", just assumed. Need to bail out if not ID3.
 			binaryReader.Read( id3Version, 0, id3Version.Length );
 			binaryReader.Read( id3Flags, 0, id3Flags.Length );
 			binaryReader.Read( id3SizeRaw, 0, id3SizeRaw.Length );
@@ -95,6 +96,7 @@ namespace Mp3TagReader {
 			var newBytes = new byte[4];
 			bitArray.CopyTo( newBytes, 0 );
 
+			// TODO: ID3 numbers are stored in big endian; negate test & switch parameters
 			return BitConverter.IsLittleEndian ? BitConverter.ToInt32( newBytes.Reverse().ToArray(), 0 ) : BitConverter.ToInt32( newBytes, 0 );
 		}
 	}

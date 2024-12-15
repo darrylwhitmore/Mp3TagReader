@@ -42,7 +42,11 @@
     },
     "Profile 10": {
       "commandName": "Project",
-      "commandLineArgs": "-fs \"D:\\Junk\\mp3tagreadwrite\\01 Do It Again.mp3\""
+      "commandLineArgs": "-fs \"D:\\Users\\Darryl\\Music\\Amped\\I'd like to buy the world a Coke.mp3\""
+    },
+    "Profile 11": {
+      "commandName": "Project",
+      "commandLineArgs": "-fs \"D:\\Users\\Darryl\\Music\\Amped\\I'd like to buy the world a Coke - No id3v1.mp3\""
     }
   }
 }

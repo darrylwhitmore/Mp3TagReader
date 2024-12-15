@@ -4,13 +4,15 @@ namespace Mp3TagReader {
 	internal class StringReader {
 		private readonly byte[] sourceBytes;
 		private readonly Encoding givenEncoding;
+		private readonly bool hasBom;
 		private readonly int maxIndex;
 
-		public StringReader( byte[] sourceBytes, int startIndex, int maxIndex, Encoding encoding ) {
+		public StringReader( byte[] sourceBytes, int startIndex, int maxIndex, Encoding encoding, bool hasBom = true ) {
 			this.sourceBytes = sourceBytes;
 			CurrentIndex = startIndex;
 			this.maxIndex = maxIndex;
 			givenEncoding = encoding;
+			this.hasBom = hasBom;
 		}
 
 		public int CurrentIndex { get; private set; }
@@ -22,9 +24,11 @@ namespace Mp3TagReader {
 				encoding = GetUtf16BomEncoding( sourceBytes[CurrentIndex] );
 			}
 
-			var preamble = encoding.GetPreamble();
+			if ( hasBom ) { 
+				var preamble = encoding.GetPreamble();
 
-			CurrentIndex += preamble.Length;
+				CurrentIndex += preamble.Length;
+			}
 
 			var stringBytes = new List<byte>();
 			var testString = string.Empty;
