@@ -16,22 +16,14 @@
 		public List<ITag> Tags { get; }
 		
 		public void LoadTags() {
-			// Id3v2
-			var id3V2Tag = new Id3V2Tag( resourceManager );
-			if ( id3V2Tag.ReadTag( Mp3File, sortId3V2Frames ) ) {
-				Tags.Add( id3V2Tag );
-			}
+			var supportedTags = new List<ITag> {
+				new Id3V2Tag( resourceManager, sortId3V2Frames ),
+				new Id3V1Tag( resourceManager ),
+				new ApeV2Tag( resourceManager )
+			};
 
-			// Id3v1
-			var id3V1Tag = new Id3V1Tag( resourceManager );
-			if ( id3V1Tag.ReadTag( Mp3File ) ) {
-				Tags.Add( id3V1Tag );
-			}
-
-			// APEv2
-			var apeV2Tag = new ApeV2Tag( resourceManager );
-			if ( apeV2Tag.ReadTag( Mp3File ) ) {
-				Tags.Add( apeV2Tag );
+			foreach ( var tag in supportedTags.Where( t => t.ReadTag( Mp3File ) ) ) {
+				Tags.Add( tag );
 			}
 		}
 	}

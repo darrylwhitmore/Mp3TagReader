@@ -1,6 +1,9 @@
 ﻿using System.Text;
 
 namespace Mp3TagReader {
+	// What is ID3 (v1)?
+	// https://id3.org/ID3v1	
+	//
 	// What are ID3 Tags all about?
 	// ID3v1 tag
 	// https://phoxis.org/2010/05/08/what-are-id3-tags-all-about/#id3v1

@@ -20,7 +20,7 @@ namespace Mp3TagReader {
 				CommandOptionType.SingleValue );
 
 			var sortId3V2FramesOption = app.Option( "-sf|--sortFrames",
-				"If provided, Id3v2 frames will be sorted by Id; otherwise they will appear in physical order.",
+				"If provided, Id3v2 frames will be sorted by Id; otherwise they will appear in physical order. Helpful if you are diffing the JSON output.",
 				CommandOptionType.NoValue );
 
 			var outputFolderOption = app.Option( "-of|--outputFolder <Folder>",
