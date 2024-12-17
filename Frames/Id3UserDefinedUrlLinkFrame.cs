@@ -4,6 +4,9 @@ using Newtonsoft.Json;
 namespace Mp3TagReader.Frames {
 	internal sealed class Id3UserDefinedUrlLinkFrame : Id3Frame {
 		public Id3UserDefinedUrlLinkFrame( string id, BinaryReader binaryReader, IResourceManager resourceManager ) : base( id, binaryReader, resourceManager ) {
+			Description = string.Empty;
+			Url = string.Empty;
+			
 			ProcessFrameBody();
 		}
 

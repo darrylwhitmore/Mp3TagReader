@@ -5,6 +5,11 @@ namespace Mp3TagReader.Frames {
 	// https://id3.org/id3v2.3.0#Attached_picture
 	internal sealed class Id3AttachedPictureFrame : Id3Frame {
 		public Id3AttachedPictureFrame( string id, BinaryReader binaryReader, IResourceManager resourceManager ) : base( id, binaryReader, resourceManager ) {
+			MimeType = string.Empty;
+			PictureType = string.Empty;
+			Description = string.Empty;
+
+
 			ProcessFrameBody();
 		}
 

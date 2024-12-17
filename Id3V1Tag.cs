@@ -13,6 +13,12 @@ namespace Mp3TagReader {
 
 		public Id3V1Tag( IResourceManager resourceManager ) {
 			this.resourceManager = resourceManager;
+
+			Title = string.Empty;
+			Artist = string.Empty;
+			Album = string.Empty;
+			Year = string.Empty;
+			Comment = string.Empty;
 		}
 
 		public string Type => "Id3v1";

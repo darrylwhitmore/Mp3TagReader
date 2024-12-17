@@ -13,16 +13,16 @@ namespace Mp3TagReader {
 		}
 
 		public string Type => "Id3v2";
-		
-		public int TagSize => Header.HeaderSize + Header.FramesSize;
 
-		public Id3Header Header { get; set; }
+		public int TagSize => Header != null ? Header.HeaderSize + Header.FramesSize : 0;
+
+		public Id3Header? Header { get; set; }
 
 		public List<IFrame> Frames { get; } = [];
 
-		private void ReadFrames( BinaryReader binaryReader, bool sortFrames ) {
+		private void ReadFrames( BinaryReader binaryReader, int framesSize, bool sortFrames ) {
 			var workFrames = new List<IFrame>();
-			var leftToRead = Header.FramesSize;
+			var leftToRead = framesSize;
 
 			while ( leftToRead > 0 && Id3Frame.GetNextFrame( binaryReader, resourceManager ) is { } frame ) {
 				workFrames.Add( frame );
@@ -54,9 +54,9 @@ namespace Mp3TagReader {
 			}
 
 			Header = header;
-				
-			ReadFrames( br, sortFrames );
-				
+
+			ReadFrames( br, Header.FramesSize, sortFrames );
+
 			return true;
 		}
 	}

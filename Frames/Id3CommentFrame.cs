@@ -6,6 +6,10 @@ namespace Mp3TagReader.Frames {
 	// https://id3.org/id3v2.3.0#Comments
 	internal sealed class Id3CommentFrame : Id3Frame {
 		public Id3CommentFrame( string id, BinaryReader binaryReader, IResourceManager resourceManager ) : base( id, binaryReader, resourceManager ) {
+			Language = string.Empty;
+			ShortContentDesc = string.Empty;
+			Text = string.Empty;
+			
 			ProcessFrameBody();
 		}
 

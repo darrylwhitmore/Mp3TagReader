@@ -6,6 +6,8 @@ namespace Mp3TagReader.Frames {
 	// https://id3.org/id3v2.3.0#Private_frame
 	internal sealed class Id3PrivateFrame : Id3Frame {
 		public Id3PrivateFrame( string id, BinaryReader binaryReader, IResourceManager resourceManager ) : base( id, binaryReader, resourceManager ) {
+			OwnerIdentifier = string.Empty;
+			
 			ProcessFrameBody();
 		}
 

@@ -17,6 +17,8 @@ namespace Mp3TagReader {
 		public Id3Header( BinaryReader br, IResourceManager resourceManager ) {
 			this.br = br;
 			this.resourceManager = resourceManager;
+
+			Version = string.Empty;
 		}
 
 		public int HeaderSize => 10;
