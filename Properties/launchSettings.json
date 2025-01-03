@@ -46,7 +46,15 @@
     },
     "Profile 11": {
       "commandName": "Project",
+      "commandLineArgs": "-fs \"\\\\sequoia3\\music\\New Colony Six\\Colonized! Best Of The New Colony Six\\\""
+    },
+    "Profile 12": {
+      "commandName": "Project",
       "commandLineArgs": "-fs \"D:\\Users\\Darryl\\Music\\Amped\\I'd like to buy the world a Coke - No id3v1.mp3\""
+    },
+    "Profile 13": {
+      "commandName": "Project",
+      "commandLineArgs": "-fs \"\\\\sequoia3\\music\\Rosanne Cash\\10 Song Demo\\\""
     }
   }
 }

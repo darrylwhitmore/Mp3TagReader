@@ -31,6 +31,18 @@ namespace Mp3TagReader {
 				if ( fileSpecOption.HasValue() ) {
 					var fileSpecValue = fileSpecOption.Value() ?? string.Empty;
 
+					// The command line parser seems to have an issue when a directory is specified with an ending backslash
+					// and is enclosed in double quotes. It seems to think the ending backslash is escaping the ending
+					// double quote. Look for this and trim off the trailing double quote if present.
+					//
+					// -fs "\\foo\bar\" -> \\foo\bar"
+					//
+					if ( fileSpecValue.EndsWith( '\"' ) ) {
+						fileSpecValue = fileSpecValue.TrimEnd( '\"' );
+					}
+
+					fileSpecValue = Path.GetFullPath( fileSpecValue );
+
 					string? mp3Directory;
 					string[] mp3Files;
 
